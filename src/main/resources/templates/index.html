@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>INICIO</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <h2>[[#{plantilla.subtitulo}]]</h2>
+        <br/>
+        <a th:href="@{/agregar}">[[#{accion.agregar}]]</a>
+        <br></br>
+        <div th:if="${registros != null and !registros.empty}">
+            <table border="1">
+                <tr>
+                    <th>[[#{titulo.numero}]]</th>
+                    <th>[[#{titulo.registro}]]</th>
+                    <th>[[#{titulo.remitente}]]</th>                    
+                    <th>[[#{titulo.cargore}]]</th>
+                    <th>[[#{titulo.entidad}]]</th>
+                    <th>[[#{titulo.destinatario}]]</th>                    
+                    <th>[[#{titulo.referencia}]]</th>
+                    <th>[[#{titulo.contenido}]]</th>
+                    <th>[[#{titulo.adjunto}]]</th>  
+                    <th>[[#{titulo.prioridad}]]</th>
+                    <th>[[#{accion.editar}]]</th>
+                    <th>[[#{accion.eliminar}]]</th>
+                </tr>
+                <tr th:each=" x : ${registros}">
+                    <td th:text="${x.numero}"></td>
+                    <td th:text="${x.numregistro}"</td>
+                    <td th:text="${x.remitente}"></td>
+                    <td th:text="${x.cargoremitente}"></td>
+                    <td th:text="${x.instremitente}"></td>
+                    <td th:text="${x.destino}"></td>
+                    <td th:text="${x.referencia}"></td>
+                    <td th:text="${x.contenido}"></td>
+                    <td th:text="${x.adjunto}"></td>
+                    <td th:text="${x.prioridad}"></td>
+                    <td><a th:href="@{/editar/}+${x.idregistro}" th:text="Editar"></a></td>
+                    <td><a th:href="@{/eliminar/}+${x.idregistro}" th:text="Eliminar"></a></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${registros == null or registros.empty}">
+            <p>No hay registros</p>
+        </div>
+    </body>
+    <div >
+        <br/>
+        <a th:href="@{/(lang=es)}">ES</a>|
+        <a th:href="@{/(lang=en)}">EN</a>
+
+    </div>
+    <footer th:replace="layout/plantilla :: footer"></footer>
+</html>
+<!<!-Creamos el proyecto 
+
+	creamos la clase controlador con un metodo que  devuelve un 
+	string y es llamado inicio
+
+creamos la clases persona, en el package Domain
+con la notacion @Data, luego en el controlador instanciamos la clase  
+persona var persona = new Persona(); y llamamos los metodos set. 
+
+En el archivo index cramos la tabla visualizamos 
+
+Conectamos a la base de datos.
+
+Creamos el package registro.dao y extendemos el crud, antes de ello
+necesitamos la dependencia jdb o jpa (averiguar)
+
+Creamos el package registro.service, dentro del mismo la interfaz
+registroService
+
+Es necesario la dependencia JPA cuando realizamo la modificacion a la 
+clase registro, @Data, Entity, Table
+
+ -->

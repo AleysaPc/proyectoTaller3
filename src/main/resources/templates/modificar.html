@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>MODIFICAR</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <header th:replace="layout/plantilla :: header"/>
+    <h2>[[#{plantilla.subtitulo}]]</h2>
+    <body>
+        <a th:href="@{/}">[[#{accion.retornar}]]</a>
+        <form th:action="@{/guardar}" method="POST" th:object="${registro}">
+            <input type="hidden" name="idrecepcion" th:field="*{idregistro}">
+            <br>
+            <label for="numero">[[#{titulo.numero}]]</label>
+            <input type="text" name="numero" th:field="*{numero}">
+            <span th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"/>
+            <br></br>
+            <label for="numregistro">[[#{titulo.registro}]]</label>
+            <input type="text" name="numregistro" th:field="*{numregistro}">
+            <span th:if="${#fields.hasErrors('numregistro')}" th:errors="*{numregistro}"/>
+            <br></br>
+            <label for="remitente">[[#{titulo.remitente}]]</label>
+            <input type="text" name="remitente" th:field="*{remitente}">
+            <span th:if="${#fields.hasErrors('remitente')}" th:errors="*{remitente}"/>
+            <br></br>
+            <label for="cargoremitente">[[#{titulo.cargore}]]</label>
+            <input type="text" name="cargoremitente" th:field="*{cargoremitente}">
+            <span th:if="${#fields.hasErrors('cargoremitente')}" th:errors="*{cargoremitente}"/>
+            <br></br>
+            <label for="instremitente">[[#{titulo.entidad}]]</label>
+            <input type="text" name="instremitente" th:field="*{instremitente}">
+            <span th:if="${#fields.hasErrors('instremitente')}" th:errors="*{instremitente}"/>
+            <br></br>
+            <label for="destino">[[#{titulo.destinatario}]]</label>
+            <input type="text" name="destino" th:field="*{destino}">
+            <span th:if="${#fields.hasErrors('destino')}" th:errors="*{destino}"/>
+            <br></br>
+            <label for="referencia">[[#{titulo.referencia}]]</label>
+            <input type="text" name="referencia" th:field="*{referencia}">
+            <span th:if="${#fields.hasErrors('referencia')}" th:errors="*{referencia}"/>
+            <br></br>
+            <label for="contenido">[[#{titulo.contenido}]]</label>
+            <input type="text" name="contenido" th:field="*{contenido}">
+
+            <br></br>
+            <label for="adjunto">[[#{titulo.adjunto}]]</label>
+            <input type="adjunto" name="adjunto" th:field="*{adjunto}">
+            <span th:if="${#fields.hasErrors('adjunto')}" th:errors="*{adjunto}"/>
+            <br></br>
+            <label for="prioridad">[[#{titulo.prioridad}]]</label>
+            <input type="text" name="prioridad" th:field="*{prioridad}">
+            <span th:if="${#fields.hasErrors('prioridad')}" th:errors="*{prioridad}"/>
+            <br></br>
+            
+            
+            <button th:text="#{accion.guardar}"/>
+
+        </form>
+
+    </body>
+    <footer th:replace="layout/plantilla :: footer"></footer>
+</html>
