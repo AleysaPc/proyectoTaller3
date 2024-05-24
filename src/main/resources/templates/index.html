@@ -53,28 +53,9 @@
         <a th:href="@{/(lang=en)}">EN</a>
 
     </div>
+    <br/>
+    <form method="POST" th:action="@{/logout}">
+        <button type="submit">[[#{accion.salir}]]</button>
+    </form>
     <footer th:replace="layout/plantilla :: footer"></footer>
 </html>
-<!<!-Creamos el proyecto 
-
-	creamos la clase controlador con un metodo que  devuelve un 
-	string y es llamado inicio
-
-creamos la clases persona, en el package Domain
-con la notacion @Data, luego en el controlador instanciamos la clase  
-persona var persona = new Persona(); y llamamos los metodos set. 
-
-En el archivo index cramos la tabla visualizamos 
-
-Conectamos a la base de datos.
-
-Creamos el package registro.dao y extendemos el crud, antes de ello
-necesitamos la dependencia jdb o jpa (averiguar)
-
-Creamos el package registro.service, dentro del mismo la interfaz
-registroService
-
-Es necesario la dependencia JPA cuando realizamo la modificacion a la 
-clase registro, @Data, Entity, Table
-
- -->

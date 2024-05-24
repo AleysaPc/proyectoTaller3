@@ -6,6 +6,8 @@ import com.gestionCorrespondencia.service.RegistroService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,12 +23,14 @@ public class Controlador {
     private RegistroDao registroDao;
     
     @GetMapping("/")
-    public String inicio(Model model) {
+    public String inicio(Model model, @AuthenticationPrincipal User user) {
 
         var registros = registroService.listarRegistro();
         
-        model.addAttribute("registros", registros);
+        
         log.info("Ejecutando el controlador");
+        log.info("Usuario que hizo login"+user);
+        model.addAttribute("registros", registros);
         return "index";
 
     }
