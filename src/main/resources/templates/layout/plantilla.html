@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Plantilla</title>
         <meta charset="UTF-8">
@@ -14,6 +15,9 @@
         
         <footer th:fragment="footer">
             <p>[[#{plantilla.pie}]] <a href="https://mvnrepository.com/" target="_blank">Maven</a></p>
+            <b>User:</b><span sec:authentication="name">Usuario que hizo login </span>|
+            <b>Roles:</b><span sec:authentication="principal.authorities">Roles</span>|
+            <!-- aqui iria el boton salir? -->
         </footer>
         
     </body>
