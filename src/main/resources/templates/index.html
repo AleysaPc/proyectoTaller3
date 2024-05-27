@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
+
+    <head th:replace="layout/plantilla :: head">
         <title>INICIO</title>
         <meta charset="UTF-8">
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
         <h2>[[#{plantilla.subtitulo}]]</h2>
-        <br/>
-        <a th:href="@{/agregar}">[[#{accion.agregar}]]</a>
+
+
+        <section th:replace="layout/agregarRegistro :: agregarRegistro"></section>
+        <section th:replace="layout/botonesAgregar :: botonesAgregar"></section> 
+        <section th:replace="layout/listadoRegistro :: listadoRegistro"></section>
+
+        <!--
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">[[#{accion.agregar}]]</a>
+
         <br></br>
         <div th:if="${registros != null and !registros.empty}">
             <table border="1">
@@ -24,8 +32,8 @@
                     <th>[[#{titulo.contenido}]]</th>
                     <th>[[#{titulo.adjunto}]]</th>  
                     <th>[[#{titulo.prioridad}]]</th>
-                    <th>[[#{accion.editar}]]</th>
-                    <th>[[#{accion.eliminar}]]</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
                 </tr>
                 <tr th:each=" x : ${registros}">
                     <td th:text="${x.numero}"></td>
@@ -38,24 +46,16 @@
                     <td th:text="${x.contenido}"></td>
                     <td th:text="${x.adjunto}"></td>
                     <td th:text="${x.prioridad}"></td>
-                    <td><a th:href="@{/editar/}+${x.idregistro}" th:text="Editar"></a></td>
-                    <td><a th:href="@{/eliminar/}+${x.idregistro}" th:text="Eliminar"></a></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar/}+${x.idregistro}" th:text="Editar"></a></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar/}+${x.idregistro}" th:text="Eliminar"></a></td>
                 </tr>
             </table>
         </div>
         <div th:if="${registros == null or registros.empty}">
             <p>No hay registros</p>
         </div>
+        -->
     </body>
-    <div >
-        <br/>
-        <a th:href="@{/(lang=es)}">ES</a>|
-        <a th:href="@{/(lang=en)}">EN</a>
-
-    </div>
     <br/>
-    <form method="POST" th:action="@{/logout}">
-        <button type="submit">[[#{accion.salir}]]</button>
-    </form>
     <footer th:replace="layout/plantilla :: footer"></footer>
 </html>

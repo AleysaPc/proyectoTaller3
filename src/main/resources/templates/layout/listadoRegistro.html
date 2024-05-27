@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>LISTADO REGISTROS</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="listadoRegistro">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{plantilla.subtitulo}]]</h4>Registros
+                            </div>
+                            <div th:if="${registros != null and !registros.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{titulo.registro}">Registro</th>
+                                            <th th:text="#{titulo.remitente}">Remitente</th>
+                                            <th th:text="#{accion.editar}">Editar</th>
+                                            <th th:text="#{accion.eliminar}">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="x, contador : ${registros}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${x.numregistro}+ ' '+${x.remitente}]]</td>
+                                            <td>Bs. [[${x.totalrecibidas}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${x.idregistro}"
+                                                   class="btn btn-secondary">
+                                                    <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/eliminar/} + ${x.idregistro}"
+                                                   class="btn btn-dark">
+                                                    <i class="fas fa-angle-double-right"></i>[[#{accion.eliminar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center p-2" th:if="${registros == null or registros.empty}">
+                            <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-danger text-white mb-3">
+                            <div class="card-body">
+                                <h3 th:text="#{registro.totales}">Registro Totales</h3>
+                                <h4 class="display-4"></h4>
+                                [[${registroTotal}]]
+                            </div>
+                        </div>
+                        <div class="cold-md-3">
+                        <div class="card text-center bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h3 th:text="#{registros.totales}">Registros Totales</h3>
+                                <h4 class="display-4"></h4>
+                                <i class="fas fa-users"></i>[[${registroTotal}]]
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

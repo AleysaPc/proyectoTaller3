@@ -14,27 +14,26 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="usuario")
+@Table(name = "usuario")
 public class Usuario implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idusuario;
-    
+    private Long id_usuario;
+
     @NotEmpty
     private String username;
-    
+
     @NotEmpty
     private String password;
-    
+
     //Unos a muchos
     @OneToMany
     //Columna que relaciona nuestras tablas
-    @JoinColumn(name="idusuario")
+    @JoinColumn(name = "id_usuario")
     //Atribuo lista de objetos, para recuperar roles aosicados a un usuario
     private List<Rol> roles;
-    
-    
+
 }

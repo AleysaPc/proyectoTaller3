@@ -27,10 +27,17 @@ public class Controlador {
 
         var registros = registroService.listarRegistro();
         
-        
         log.info("Ejecutando el controlador");
         log.info("Usuario que hizo login"+user);
         model.addAttribute("registros", registros);
+        
+        
+        var registroTotal = 0D;
+        for(var p: registros){
+            registroTotal += p.getTotalrecibidas();
+        }
+        model.addAttribute("registroTotal", registroTotal);
+        model.addAttribute("totalRegistros", registros.size());
         return "index";
 
     }

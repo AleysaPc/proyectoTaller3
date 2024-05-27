@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import lombok.Data;
 
@@ -41,5 +42,7 @@ public class Registro implements Serializable{
     @NotEmpty
     private String prioridad;
     //hora y fecha automatico?
+    @NotNull
+    private Integer totalrecibidas;
     
 }

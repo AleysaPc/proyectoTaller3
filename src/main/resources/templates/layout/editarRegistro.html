@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>EDITAR REGISTRO</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editarRegistro">
+            <form th:action="@{/guardar}" th:object="${registro}"
+                  method="POST" class="was-validated">
+                <input type="hidden" name="idregistro" th:field="*{idregistro}"/>
+                <section th:replace="layout/botonesEditar :: botonesEditar"></section>
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.editar}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="numero" th:text="#{titulo.numero}"></label>
+                                            <input type="text" class="form-control" name="numero" required="true" th:field="*{numero}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="numregistro" th:text="#{titulo.registro}">Numero Regisro</label>
+                                            <input type="text" class="form-control" name="numregistro" required="true" th:field="*{numregistro}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="remitente" th:text="#{titulo.remitente}">Remitente</label>
+                                            <input type="text" class="form-control" name="remitente" required="true" th:field="*{remitente}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cargoremitente" th:text="#{titulo.cargore}"></label>
+                                            <input type="text" class="form-control" name="cargoremitente" required="true" th:field="*{cargoremitente}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="instremitente" th:text="#{titulo.entidad}"></label>
+                                            <input type="text" class="form-control" name="instremitente" required="true" th:field="*{instremitente}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="destino" th:text="#{titulo.destino}"></label>
+                                            <input type="text" class="form-control" name="destino" required="true" th:field="*{destino}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="referecnia" th:text="#{titulo.referencia}"></label>
+                                            <input type="text" class="form-control" name="referencia" required="true" th:field="*{referencia}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contenido" th:text="#{titulo.contenido}"></label>
+                                            <input type="text" class="form-control" name="contenido" required="true" th:field="*{contenido}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="adjunto" th:text="#{titulo.adjunto}"></label>
+                                            <input type="text" class="form-control" name="adjunto" required="true" th:field="*{adjunto}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prioridad" th:text="#{titulo.prioridad}"></label>
+                                            <input type="text" class="form-control" name="prioridad" required="true" th:field="*{prioridad}">
+                                        </div> 
+                                        <div class="form-group">
+                                            <label for="totalrecibidas" th:text="#{total.registro}"></label>
+                                            <input type="text" class="form-control" name="totalrecibidas" required="true" th:field="*{totalrecibidas}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        </form>
+        </section>
+    </body>
+</html>
