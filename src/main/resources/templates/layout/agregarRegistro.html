@@ -14,21 +14,21 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Cliente</h5>
+                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Registro</h5>
                             <button class="close" data-dismiss="modal">
                                 <span>&times;</span>
                             </button>
                         </div>
                         <form th:action="@{/guardar}" th:object="${registro}"
-                              method="POST" class="was-validated"> <!-- para validacion -->
+                              method="POST"  > <!-- para validacion class="was-validated"-->
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="numero" th:text="#{titulo.numero}"></label>
-                                    <input type="text" class="form-control" name="numero" required="true">
+                                    <input type="text" class="form-control" name="numero" th:value=${registroTotal} readonly required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="numregistro" th:text="#{titulo.registro}">Numero Regisro</label>
-                                    <input type="text" class="form-control" name="numregistro" required="true">
+                                    <input type="text" class="form-control" name="numregistro" th:value="${numeroRegistro}" readonly required="true">
                                 </div>
                                 <div class="form-group">
                                     <label for="remitente" th:text="#{titulo.remitente}">Remitente</label>
@@ -43,8 +43,14 @@
                                     <input type="text" class="form-control" name="instremitente" required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="destino" th:text="#{titulo.destinatario}"></label>
-                                    <input type="text" class="form-control" name="destino" required="true">
+                                    <label for="destinatario" th:text="#{titulo.destinatario}">Destinatario</label>
+                                    <select class="form-control" name="destinatario" >
+                                        <option value="lic. Ordones">Lic. Ordones</option>
+                                        <option value="lic. Ordones">Lic. Montes</option>
+                                        <option value="lic. Ordones">Lic. Salazar</option>
+                                        <option value="lic. Ordones">Lic. Miranda</option><!-- Opción vacía para mostrar el placeholder -->
+                                        <!-- Agrega dinámicamente opciones según sea necesario -->
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="referecnia" th:text="#{titulo.referencia}"></label>
@@ -60,13 +66,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="prioridad" th:text="#{titulo.prioridad}"></label>
-                                    <input type="text" class="form-control" name="prioridad" required="true">
+                                    <select class="form-control" name="prioridad" style="padding-right: 25px;" novalidate>
+                                        <option value="baja">Baja</option>
+                                        <option value="media">Media</option>
+                                        <option value="alta">Alta</option>
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="totalrecibidas" th:text="#{titulo.total}"></label>
-                                    <input type="text" class="form-control" name="totalrecibidas" required="true">
-                                </div>
-                                
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
                                 </div>
@@ -75,7 +80,6 @@
                     </div>
                 </div>
             </div>
-
         </section>
     </body>
 </html>

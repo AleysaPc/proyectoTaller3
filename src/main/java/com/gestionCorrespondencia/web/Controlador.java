@@ -4,6 +4,8 @@ import com.gestionCorrespondencia.dao.RegistroDao;
 import com.gestionCorrespondencia.domain.Registro;
 import com.gestionCorrespondencia.service.RegistroService;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,12 +34,18 @@ public class Controlador {
         model.addAttribute("registros", registros);
         
         
-        var registroTotal = 0D;
+        var registroTotal = 0;
         for(var p: registros){
-            registroTotal += p.getTotalrecibidas();
+            registroTotal++;    
         }
+        LocalDate fechaActual  = LocalDate.now();
+        int year = fechaActual.getYear();
+        String numeroRegistro = String.format("R-%02d/%d", registroTotal, year);
+        
+        
         model.addAttribute("registroTotal", registroTotal);
         model.addAttribute("totalRegistros", registros.size());
+        model.addAttribute("numeroRegistro", numeroRegistro);
         return "index";
 
     }
