@@ -1,22 +1,31 @@
 <!DOCTYPE html>
+
 <html
     xmlns:th="http://www.thymeleaf.org"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
-        <title>LISTADO REGISTROS</title>
+
+    <head th:replace="layout/plantilla :: head">
+        <title>TODOS LOS REGISTROS</title>
         <meta charset="UTF-8"/>
     </head>
     <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <br></br>
         <section th:fragment="listadoRegistro">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{registro.ultimos}]]</h4>
+                                <h3>Todos los registros</h3>
+
+                                <form action="#" th:action="@{/todosLosRegistros}" method="get" class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="keyword" th:value="${keyword}">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                                </form>
                             </div>
-                            <div th:if="${registros != null and !registros.empty}">
+                            <div th:if="${registros !=null and !registros.empty}">
                                 <table class="table table-stryped">
                                     <thead class="thead-dark">
                                         <tr>
@@ -29,15 +38,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
                                         <!--Se esta mostrando los ultimos tres registros -->
                                         <tr th:each="x, contador : ${registros}">
-                                            
+
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${x.numregistro}]]</td>
                                             <td>[[${x.remitente}]]</td>
                                             <td>[[${x.referencia}]]</td>
-                                           
+
                                             <td>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${x.idregistro}"
                                                    class="btn btn-secondary">
@@ -55,29 +64,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="text-center p-2" th:if="${registros == null or registros.empty}">
-                            <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
-                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card text-center bg-danger text-white mb-3" onclick="window.location.href='./todosLosRegistros'" style="cursor: pointer;">
-                            <div class="card-body">
-                                <h3 th:text="#{total.registro}" style="font-size: 20px;"></h3>
-                                <h4 class="display-4"></h4>
-                                <i class="fa fa-folder" ></i>  [[${registroTotal}]]
-                            </div>
-                        </div>
-                        <div class="cold-md-3">
-                        <div class="card text-center bg-success text-white mb-3">
-                            <div class="card-body">
-                                <h3 th:text="#{total.envio}"></h3>
-                                <h4 class="display-4"></h4>
-                                <i class="fa fa-paper-plane"></i>  [[${registroTotal}]]
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    
                 </div>
             </div>
         </section>
