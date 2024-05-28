@@ -15,25 +15,23 @@
                     <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a href="agregarRegistro" class="btn btn-primary btn-block"
                            data-toggle="modal" data-target="#agregarRegistro">
-                            <i class="fas fa-plus"></i>[[#{accion.agregar}]]
+                            <i class="fas fa-plus"></i>  [[#{accion.agregar}]]
                         </a>
                     </div>
-                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <div class="dropdown">
-                            <button class="btn btn-primary btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-plus"></i> [[#{accion.crear}]]
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="agregarRegistroWord">
-                                    <i class="fas fa-file-word"></i> Word
-                                </a>
-                                <a class="dropdown-item" href="agregarRegistroExcel">
-                                    <i class="fas fa-file-excel"></i> Excel
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="crearDocumento" class="btn btn-primary btn-block">
+                            <i class="fas fa-plus"></i>  [[#{registro.crear}]]
+                        </a>
+                    </div>
+<!--
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="crearDocumento" class="btn btn-primary btn-block"
+                           data-toggle="modal" data-target="#crearDocumento">
+                            <i class="fas fa-plus"></i>  [[#{accion.agregar}]]
+                        </a>
+                    </div>
+--> 
                 </div>
             </div>
         </section>

@@ -33,13 +33,14 @@ public class Controlador {
         var registros = registroService.listarRegistro();
 
         //Mostrar los utlimos tres registros
-        int totalRegistros = registros.size();
-        List<Registro> ultimosTresRegistros = registros.subList(Math.max(totalRegistros - 3, 0), totalRegistros);
+       int totalRegistros = registros.size();
+       // List<Registro> ultimosTresRegistros = registros.subList(Math.max(totalRegistros - 3, 0), totalRegistros);
 
         log.info("Ejecutando el controlador");
         log.info("Usuario que hizo login" + user);
         model.addAttribute("registros", registros);
-        model.addAttribute("registros", ultimosTresRegistros);
+       
+       //model.addAttribute("registros", ultimosTresRegistros);
 
         var registroTotal = 0;
         for (var p : registros) {
@@ -52,32 +53,34 @@ public class Controlador {
         model.addAttribute("registroTotal", registroTotal);
         model.addAttribute("totalRegistros", registros.size());
         model.addAttribute("numeroRegistro", numeroRegistro);
+       
         return "index";
 
     }
 
-    
-    
+
     @GetMapping("/todosLosRegistros")
-    public String verTodosLosRegistros(@RequestParam(value = "keyword", required = false) String keyword,Model model) {
+    public String verTodosLosRegistros(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
         List<Registro> registros = registroService.listarRegistro();
-        
+
         if (keyword != null && !keyword.isEmpty()) {
             registros = registros.stream()
-                .filter(registro -> registro.getNumregistro().contains(keyword) ||
-                                    registro.getRemitente().contains(keyword) ||
-                                    registro.getReferencia().contains(keyword))
-                .collect(Collectors.toList());
+                    .filter(registro -> registro.getNumregistro().contains(keyword)
+                    || registro.getRemitente().contains(keyword)
+                    || registro.getReferencia().contains(keyword))
+                    .collect(Collectors.toList());
         }
-        
-        
+
         model.addAttribute("registros", registros);
         model.addAttribute("keyword", keyword);
         return "todosLosRegistros"; // Nombre de la plantilla en src/main/resources/templates
     }
 
-    
-    
+    @GetMapping("/crearDocumento")
+    public String crearDocumento() {
+        return "layout/crearDocumento";
+    }
+
     @GetMapping("/agregar") //Get Obtener informacion
     public String agregar(Registro registro) {
         return "modificar";
