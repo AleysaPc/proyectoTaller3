@@ -14,7 +14,7 @@
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{registro.ultimos}]]</h4>
+                                <h4>[[#{plantilla.subtitulo}]]</h4>Registros
                             </div>
                             <div th:if="${registros != null and !registros.empty}">
                                 <table class="table table-stryped">
@@ -23,21 +23,15 @@
                                             <th>#</th>
                                             <th th:text="#{titulo.registro}">Registro</th>
                                             <th th:text="#{titulo.remitente}">Remitente</th>
-                                            <th th:text="#{titulo.referencia}"></th>
                                             <th th:text="#{accion.editar}">Editar</th>
                                             <th th:text="#{accion.eliminar}">Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-                                        <!--Se esta mostrando los ultimos tres registros -->
                                         <tr th:each="x, contador : ${registros}">
-                                            
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${x.numregistro}]]</td>
-                                            <td>[[${x.remitente}]]</td>
-                                            <td>[[${x.referencia}]]</td>
-                                           
+                                            <td>[[${x.numregistro}+ ' '+${x.remitente}]]</td>
+                                            <td>Bs. [[${x.totalrecibidas}]]</td>
                                             <td>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${x.idregistro}"
                                                    class="btn btn-secondary">
@@ -47,7 +41,7 @@
                                             <td>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/eliminar/} + ${x.idregistro}"
                                                    class="btn btn-dark">
-                                                    <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
+                                                    <i class="fas fa-angle-double-right"></i>[[#{accion.eliminar}]]
                                                 </a>
                                             </td>
                                         </tr>
@@ -60,24 +54,24 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card text-center bg-danger text-white mb-3" onclick="window.location.href='./todosLosRegistros'" style="cursor: pointer;">
+                        <div class="card text-center bg-danger text-white mb-3">
                             <div class="card-body">
-                                <h3 th:text="#{total.registro}" style="font-size: 20px;"></h3>
+                                <h3 th:text="#{registro.totales}">Registro Totales</h3>
                                 <h4 class="display-4"></h4>
-                                <i class="fa fa-folder" ></i>  [[${registroTotal}]]
+                                [[${registroTotal}]]
                             </div>
                         </div>
                         <div class="cold-md-3">
                         <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">
-                                <h3 th:text="#{total.envio}"></h3>
+                                <h3 th:text="#{registros.totales}">Registros Totales</h3>
                                 <h4 class="display-4"></h4>
-                                <i class="fa fa-paper-plane"></i>  [[${registroTotal}]]
+                                <i class="fas fa-users"></i>[[${registroTotal}]]
                             </div>
                         </div>
                     </div>
                     </div>
-                    
+
                 </div>
             </div>
         </section>

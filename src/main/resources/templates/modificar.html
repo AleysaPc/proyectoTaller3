@@ -11,9 +11,9 @@
 
     <h2>[[#{plantilla.subtitulo}]]</h2>
     <body>
-        <header th:replace="layout/plantilla :: header"/>
-        <secction th:replace="layout/editarRegistro :: editarRegistro"></secction>
-        <footer th:replace="layout/plantilla :: footer"></footer>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <secction th:replace="~{layout/editarRegistro :: editarRegistro}"></secction>
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
     </body>
 
 </html>

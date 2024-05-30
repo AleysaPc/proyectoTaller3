@@ -23,6 +23,14 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
+                                            <label for="numero" th:text="#{titulo.numero}"></label>
+                                            <input type="text" class="form-control" name="numero" required="true" th:field="*{numero}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="numregistro" th:text="#{titulo.registro}">Numero Regisro</label>
+                                            <input type="text" class="form-control" name="numregistro" required="true" th:field="*{numregistro}">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="remitente" th:text="#{titulo.remitente}">Remitente</label>
                                             <input type="text" class="form-control" name="remitente" required="true" th:field="*{remitente}">
                                         </div>
@@ -35,13 +43,8 @@
                                             <input type="text" class="form-control" name="instremitente" required="true" th:field="*{instremitente}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="destinatario" th:text="#{titulo.destinatario}">Destinatario</label>
-                                            <select class="form-control" name="destinatario" >
-                                                <option value="lic. Ordones">Lic. Ordones</option>
-                                                <option value="lic. Ordones">Lic. Montes</option>
-                                                <option value="lic. Ordones">Lic. Salazar</option>
-                                                <option value="lic. Ordones">Lic. Miranda</option>
-                                            </select>
+                                            <label for="destino" th:text="#{titulo.destino}"></label>
+                                            <input type="text" class="form-control" name="destino" required="true" th:field="*{destino}">
                                         </div>
                                         <div class="form-group">
                                             <label for="referecnia" th:text="#{titulo.referencia}"></label>
@@ -57,13 +60,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="prioridad" th:text="#{titulo.prioridad}"></label>
-                                            <select class="form-control" name="prioridad" required="true">
-                                                <option value="baja">Baja</option>
-                                                <option value="media">Media</option>
-                                                <option value="alta">Alta</option>
-                                            </select>
+                                            <input type="text" class="form-control" name="prioridad" required="true" th:field="*{prioridad}">
+                                        </div> 
+                                        <div class="form-group">
+                                            <label for="totalrecibidas" th:text="#{total.registro}"></label>
+                                            <input type="text" class="form-control" name="totalrecibidas" required="true" th:field="*{totalrecibidas}">
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
