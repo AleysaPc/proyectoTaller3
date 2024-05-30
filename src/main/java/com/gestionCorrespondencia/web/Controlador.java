@@ -26,13 +26,13 @@ public class Controlador {
     @Autowired
     private RegistroService registroService;
     private RegistroDao registroDao;
+    
 
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) {
 
         var registros = registroService.listarRegistro();
 
-        
         log.info("Ejecutando el controlador");
         log.info("Usuario que hizo login" + user);
         model.addAttribute("registros", registros);
@@ -44,12 +44,18 @@ public class Controlador {
 
         model.addAttribute("registroTotal", registroTotal);
         model.addAttribute("totalRegistros", registros.size());
-        
-        return "index";
 
+        return "index";
+    }
+    @GetMapping("/todosLosRegistros")
+    public String mostrarRegistros(Model model) {
+        List<Registro> registros = registroService.listarRegistro();
+        model.addAttribute("registros", registros);
+        return "todosLosRegistros"; // El nombre de la plantilla Thymeleaf (sin extensión)
     }
 
-   
+    
+    
     @GetMapping("/agregar") //Get Obtener informacion
     public String agregar(Registro registro) {
         return "modificar";

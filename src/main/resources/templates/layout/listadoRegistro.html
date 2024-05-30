@@ -54,13 +54,15 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card text-center bg-danger text-white mb-3">
+                        <a href="todosLosRegistros">
+                        <div class="card text-center bg-danger text-white mb-3" onclick="">
                             <div class="card-body">
                                 <h3 th:text="#{registro.totales}">Registro Totales</h3>
                                 <h4 class="display-4"></h4>
                                 [[${registroTotal}]]
                             </div>
                         </div>
+                        </a>
                         <div class="cold-md-3">
                         <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">

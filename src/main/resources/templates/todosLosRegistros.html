@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html
     xmlns:th="http://www.thymeleaf.org"
     xmlns="http://www.w3.org/1999/xhtml"
@@ -7,65 +6,10 @@
 
     <head th:replace="layout/plantilla :: head">
         <title>TODOS LOS REGISTROS</title>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8">
     </head>
     <body>
-        <header th:replace="layout/plantilla :: header"></header>
-        <br></br>
-        <section th:fragment="listadoRegistro">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Todos los registros</h3>
-                                <form action="#" th:action="@{/todosLosRegistros}" method="get" class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="keyword" th:value="${keyword}">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                                </form>
-                            </div>
-                            <div th:if="${registros !=null and !registros.empty}">
-                                <table class="table table-stryped">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>#</th>
-                                            <th th:text="#{titulo.registro}">Registro</th>
-                                            <th th:text="#{titulo.remitente}">Remitente</th>
-                                            <th th:text="#{titulo.referencia}"></th>
-                                            <th th:text="#{accion.editar}">Editar</th>
-                                            <th th:text="#{accion.eliminar}">Eliminar</th>
-                                        </tr>
-                                    </thead> 
-                                    <tbody>
-
-                                        <!--Se esta mostrando los ultimos tres registros -->
-                                        <tr th:each="x, contador : ${registros}">
-
-                                            <td>[[${contador.count}]]</td>
-                                            <td>[[${x.numregistro}]]</td>
-                                            <td>[[${x.remitente}]]</td>
-                                            <td>[[${x.referencia}]]</td>
-
-                                            <td>
-                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${x.idregistro}"
-                                                   class="btn btn-secondary">
-                                                    <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/eliminar/} + ${x.idregistro}"
-                                                   class="btn btn-dark">
-                                                    <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section th:replace="layout/plantilla :: header"></section>
+        <section th:replace="layout/listadoRegistro :: listadoRegistro"></section>
     </body>
 </html>
