@@ -11,6 +11,7 @@
         <section th:fragment="listadoRegistro">
             <div class="container">
                 <div class="row">
+                    <nav th:replace="layout/navegacion :: navegacion"></nav>
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
@@ -31,7 +32,7 @@
                                         <tr th:each="x, contador : ${registros}">
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${x.numregistro}+ ' '+${x.remitente}]]</td>
-                                            <td>Bs. [[${x.totalrecibidas}]]</td>
+                                            
                                             <td>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${x.idregistro}"
                                                    class="btn btn-secondary">
@@ -53,25 +54,7 @@
                             <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <a href="todosLosRegistros">
-                        <div class="card text-center bg-danger text-white mb-3" onclick="">
-                            <div class="card-body">
-                                <h3 th:text="#{registro.totales}">Registro Totales</h3>
-                                <h4 class="display-4"></h4>
-                                [[${registroTotal}]]
-                            </div>
-                        </div>
-                        </a>
-                        <div class="cold-md-3">
-                        <div class="card text-center bg-success text-white mb-3">
-                            <div class="card-body">
-                                <h3 th:text="#{registros.totales}">Registros Totales</h3>
-                                <h4 class="display-4"></h4>
-                                <i class="fas fa-users"></i>[[${registroTotal}]]
-                            </div>
-                        </div>
-                    </div>
+                    
                     </div>
 
                 </div>

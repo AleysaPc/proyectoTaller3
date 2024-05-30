@@ -43,7 +43,4 @@ public class Registro implements Serializable{
     private String prioridad;
     //hora y fecha automatico?
     
-    @NotNull
-    private Integer totalrecibidas;
-    
 }

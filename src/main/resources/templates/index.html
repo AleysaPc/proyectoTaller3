@@ -5,54 +5,92 @@
     <head th:replace="layout/plantilla :: head">
         <title>INICIO</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     </head>
     <body>
+
         <header th:replace="layout/plantilla :: header"></header>
-
-        <section th:replace="layout/agregarRegistro :: agregarRegistro"></section>
-        <section th:replace="layout/botonesAgregar :: botonesAgregar"></section> 
-        <section th:replace="layout/listadoRegistro :: listadoRegistro"></section>
-
-        <!--
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">[[#{accion.agregar}]]</a>
-
         <br></br>
-        <div th:if="${registros != null and !registros.empty}">
-            <table border="1">
-                <tr>
-                    <th>[[#{titulo.numero}]]</th>
-                    <th>[[#{titulo.registro}]]</th>
-                    <th>[[#{titulo.remitente}]]</th>                    
-                    <th>[[#{titulo.cargore}]]</th>
-                    <th>[[#{titulo.entidad}]]</th>
-                    <th>[[#{titulo.destinatario}]]</th>                    
-                    <th>[[#{titulo.referencia}]]</th>
-                    <th>[[#{titulo.contenido}]]</th>
-                    <th>[[#{titulo.adjunto}]]</th>  
-                    <th>[[#{titulo.prioridad}]]</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
-                </tr>
-                <tr th:each=" x : ${registros}">
-                    <td th:text="${x.numero}"></td>
-                    <td th:text="${x.numregistro}"</td>
-                    <td th:text="${x.remitente}"></td>
-                    <td th:text="${x.cargoremitente}"></td>
-                    <td th:text="${x.instremitente}"></td>
-                    <td th:text="${x.destino}"></td>
-                    <td th:text="${x.referencia}"></td>
-                    <td th:text="${x.contenido}"></td>
-                    <td th:text="${x.adjunto}"></td>
-                    <td th:text="${x.prioridad}"></td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar/}+${x.idregistro}" th:text="Editar"></a></td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar/}+${x.idregistro}" th:text="Eliminar"></a></td>
-                </tr>
-            </table>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <nav th:replace="layout/navegacion :: navegacion"></nav>
+
+                <!-- Main Content -->
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-md-4 main-content">
+
+                    <h2>INICIO</h2>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card card-custom card text-white bg-info mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Entrantes  <i class="fas fa-envelope-open-text"></i></h5>
+                                    <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
+                                    <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-custom card text-white bg-dark mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Enviados  <i class="fas fa-paper-plane"></i></h5>
+                                    <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
+                                    <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-custom card text-white bg-info mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pendientes  <i class="fas fa-clock"></i></h5>
+                                    <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
+                                    <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <section th:replace="layout/agregarRegistro :: agregarRegistro"></section>
+                        </div>
+                    </div>
+                    <!--<!-- segunda fila -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card card-custom card text-white bg-info mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Contactos  <i class="fas fa-user"></i></h5>
+                                    <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
+                                    <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-custom card text-white bg-info mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Listas  <i class="fas fa-list"></i></h5>
+                                    <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
+                                    <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card card-custom card text-white bg-info     mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pendientes  <i class="fas fa-clock"></i></h5>
+                                    <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
+                                    <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <section th:replace="layout/agregarRegistro :: agregarRegistro"></section>
+                        </div>
+                    </div>
+                </main>
+            </div>
         </div>
-        <div th:if="${registros == null or registros.empty}">
-            <p>No hay registros</p>
-        </div>
-        -->
+
     </body>
     <br/>
     <footer th:replace="layout/plantilla :: footer"></footer>

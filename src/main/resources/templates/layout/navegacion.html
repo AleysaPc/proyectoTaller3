@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <nav th:fragment="navegacion"
+            
+            class="col-md-3  d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column list-group" id="navList">
+                    <a th:href="@{/}" class="list-group-item list-group-item-action list-group-item-ligth" id="inicio"><i class="fas fa-tachometer-alt"></i> Inicio</a>
+                    <a href="agregarRegistro" data-toggle="modal" data-target="#agregarRegistro" class="list-group-item list-group-item-action list-group-item-ligth" id="nuevoRegistro"><i class="fas fa-plus"></i> Nuevo Registro</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-ligth" id="nuevoDocumento"><i class="fas fa-file"></i> Nuevo Documento</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-ligth" id="entrantes"><i class="fas fa-envelope-open-text"></i> Entrantes</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-ligth" id="salientes"><i class="fas fa-paper-plane"></i> Salientes</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-ligth" id="contactos"><i class="fas fa-user"></i> Contactos</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-ligth" id="listas"><i class="fas fa-list"></i> Listas</a>
+                </ul>
+            </div>
+        </nav>
+    </body>
+</html>
