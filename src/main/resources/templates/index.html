@@ -15,12 +15,12 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Sidebar -->
-                <nav th:replace="layout/navegacion :: navegacion"></nav>
-
+                <div class="col-md-3">
+                    <nav th:replace="layout/navegacion :: navegacion"></nav>
+                </div>
                 <!-- Main Content -->
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-md-4 main-content">
 
-                    <h2>INICIO</h2>
 
                     <div class="row">
                         <div class="col-md-4">
@@ -77,7 +77,7 @@
                         <div class="col-md-4">
                             <div class="card card-custom card text-white bg-info     mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Pendientes  <i class="fas fa-clock"></i></h5>
+                                    <h5 class="card-title">Archivos  <i class="fas fa-archive"></i></h5>
                                     <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
                                     <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
                                 </div>

@@ -11,19 +11,27 @@
         <section th:fragment="listadoRegistro">
             <div class="container">
                 <div class="row">
-                    <nav th:replace="layout/navegacion :: navegacion"></nav>
+                    <div class="col-md-3">
+                        <nav th:replace="layout/navegacion :: navegacion"></nav>
+                    </div>
                     <div class="col-md-9">
                         <div class="card">
-                            <div class="card-header">
-                                <h4>[[#{plantilla.subtitulo}]]</h4>Registros
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4>[[#{plantilla.subtitulo}]]</h4>
+                                <form th:action="@{/todosLosRegistros}" method="get" class="form-inline">
+                                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="keyword">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                                </form>
                             </div>
                             <div th:if="${registros != null and !registros.empty}">
+
                                 <table class="table table-stryped">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>#</th>
                                             <th th:text="#{titulo.registro}">Registro</th>
                                             <th th:text="#{titulo.remitente}">Remitente</th>
+                                            <th th:text="#{titulo.referencia}">Referencia</th>
                                             <th th:text="#{accion.editar}">Editar</th>
                                             <th th:text="#{accion.eliminar}">Eliminar</th>
                                         </tr>
@@ -31,18 +39,20 @@
                                     <tbody>
                                         <tr th:each="x, contador : ${registros}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${x.numregistro}+ ' '+${x.remitente}]]</td>
-                                            
+                                            <td>[[${x.numregistro}]]</td>
+                                            <td>[[${x.remitente}]]</td>
+                                            <td>[[${x.referencia}]]</td>
+
                                             <td>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/editar/} + ${x.idregistro}"
-                                                   class="btn btn-secondary">
+                                                   class="btn btn-info">
                                                     <i class="fas fa-angle-double-right">[[#{accion.editar}]]</i>
                                                 </a>
                                             </td>
                                             <td>
                                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/eliminar/} + ${x.idregistro}"
-                                                   class="btn btn-dark">
-                                                    <i class="fas fa-angle-double-right"></i>[[#{accion.eliminar}]]
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-angle-double-right">[[#{accion.eliminar}]]</i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -53,8 +63,6 @@
                         <div class="text-center p-2" th:if="${registros == null or registros.empty}">
                             <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
                         </div>
-                    </div>
-                    
                     </div>
 
                 </div>

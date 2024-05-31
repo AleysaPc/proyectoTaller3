@@ -6,29 +6,122 @@
     <head th:replace="layout/plantilla :: head">
         <title>Crear Nuevo Documento</title>
         <meta charset="UTF-8"/>
+
     </head>
     <body>
-        <!--
         <header th:replace="layout/plantilla :: header"></header>
-        <section th:fragment="crearDocumento">
-            <form th:action="@{/guardar}" th:object="${registro}"
-                  method="POST" >
-                <div id="details">
-                    <div class="container">
+        <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <nav th:replace="layout/navegacion :: navegacion"></nav>
+                    </div>
+                    <div class="col-md-9">
+                        <form th:action="@{/generarDocumento}" method="post">
+                            <button type="submit">Generar Documento Word</button>
+                        </form>
                         <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h2>Nuevos Documentos</h2>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="/descargarDocumento">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/34/c8/9f/34c89f69b5bfbc880381d8b548492834.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Carta</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/32/5b/f1/325bf1f3741830db2dc62a226a1a5485.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); ; padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Pemiso</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/34/c8/9f/34c89f69b5bfbc880381d8b548492834.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%);  padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Carta</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/34/c8/9f/34c89f69b5bfbc880381d8b548492834.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%);  padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Carta</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/34/c8/9f/34c89f69b5bfbc880381d8b548492834.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Carta</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/32/5b/f1/325bf1f3741830db2dc62a226a1a5485.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%); ; padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Pemiso</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/34/c8/9f/34c89f69b5bfbc880381d8b548492834.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%);  padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Carta</h3>
+                                                </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card" style="border: none;">
+                                    <a href="tu_url_destino">
+                                        <div class="card" style="position: relative; height: 200px; display: flex; justify-content: center; align-items: center; border: none; ">
+                                            <img src="https://i.pinimg.com/564x/34/c8/9f/34c89f69b5bfbc880381d8b548492834.jpg" alt="Descripción de la imagen" class="card-img" style="width: 170px; height: 180px;">
+                                                <div class="card-overlay" style="position: absolute; top: 65%; left: 50%; transform: translate(-50%, -50%);  padding: 5px;">
+                                                    <h3 class="card-title" style="color: #333;">Carta</h3>
+                                                </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        </section>        
-        </div>
-        -->
+            </div>
     </body>
 </html>
