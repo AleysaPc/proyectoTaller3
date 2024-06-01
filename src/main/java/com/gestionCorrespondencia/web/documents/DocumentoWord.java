@@ -2,13 +2,19 @@ package com.gestionCorrespondencia.web.documents;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.util.Units;
+import org.apache.poi.wp.usermodel.HeaderFooterType;
+import org.apache.poi.xwpf.usermodel.Document;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFHeader;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 public class DocumentoWord {
 
-    public void generarDocumento() {
+    public void generarDocumento() throws InvalidFormatException {
         try {
             // Crear un nuevo documento Word
             XWPFDocument document = new XWPFDocument();
@@ -28,7 +34,46 @@ public class DocumentoWord {
         }
     }
 
-    private void agregarContenido(XWPFDocument document) {
+    private void agregarContenido(XWPFDocument document) throws InvalidFormatException {
+
+        //Memebretado
+        XWPFHeader header = document.createHeader(HeaderFooterType.DEFAULT);
+        XWPFParagraph headerParagraph = header.createParagraph();
+        XWPFRun headerRun = headerParagraph.createRun();
+        headerRun.setBold(true);
+
+        String imagePathLogo = "/img/logoIsaf.jpg";
+        String imagePathEncabezado = "/img/encabezado.JPG";
+        
+        
+        try (InputStream inputStreamEncabezado = DocumentoWord.class.getResourceAsStream(imagePathEncabezado)) {
+            if (inputStreamEncabezado != null) {
+                XWPFRun runEncabezado = headerParagraph.createRun();
+                runEncabezado.addPicture(inputStreamEncabezado, Document.PICTURE_TYPE_JPEG, imagePathEncabezado, Units.toEMU(400), Units.toEMU(50));
+            } else {
+                System.out.println("Error: No se pudo encontrar la imagen en la ruta especificada.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error al agregar la imagen: " + e.getMessage());
+        }
+        
+        
+        // Agregar primera imagen (logo)
+        try (InputStream inputStreamLogo = DocumentoWord.class.getResourceAsStream(imagePathLogo)) {
+            if (inputStreamLogo != null) {
+                XWPFRun runLogo = headerParagraph.createRun();
+                runLogo.addPicture(inputStreamLogo, Document.PICTURE_TYPE_JPEG, imagePathLogo, Units.toEMU(50), Units.toEMU(50));
+            } else {
+                System.out.println("Error: No se pudo encontrar la imagen en la ruta especificada.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error al agregar la imagen: " + e.getMessage());
+        }
+
+        // Agregar segunda imagen (encabezado)
+       
+        
+
         // Agregar un párrafo al documento
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
