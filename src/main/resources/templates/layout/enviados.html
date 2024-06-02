@@ -4,26 +4,76 @@
         <title>ENVIADOS</title>
         <meta charset="UTF-8">
     </head>
-    <header th:replace="layout/plantilla :: header"></header>
     <body>
+        <header th:replace="layout/plantilla :: header"></header>
         <div class="container-fluid">
             <div class="row">
+                <!-- Sidebar -->
                 <div class="col-md-3">
                     <nav th:replace="layout/navegacion :: navegacion"></nav>
                 </div>
+                <!-- Main Content -->
                 <div class="col-md-9">
-                    <form th:action="@{/subirDocumento}" method="post" enctype="multipart/form-data" class="mt-4">
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputDocumento" name="file" accept=".pdf" onchange="updateFileName()">
-                                <label class="custom-file-label" for="inputDocumento" id="fileLabel">Seleccionar archivo PDF</label>
-                            </div>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary bg-info">Subir Documento</button>
-                            </div>
+                    <!-- Card Header with Search Form -->
+                    <div class="card mt-4">
+                        <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white">
+                            <h4>[[#{plantilla.subtitulo}]]</h4>
+                            <form th:action="@{/registrosEnviados}" method="get" class="form-inline">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="keyword">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                            </form>
                         </div>
-                    </form>
+                    </div>
 
+                    <!-- Dropdown for Registering Document -->
+                    <div class="dropdown mt-4">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Registrar documento Enviado
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <form th:action="@{/subirDocumento}" method="post" enctype="multipart/form-data" class="p-3" style="width: 600px;">
+                                <div class="form-group">
+                                    <label for="fecha">Fecha de envío:</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numcite">CITE</label>
+                                    <input type="text" class="form-control" id="numcite" name="numcite" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="remitente">Remitente</label>
+                                    <input type="text" class="form-control" id="remitente" name="remitente" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="destinatario">Destinatario</label>
+                                    <input type="text" class="form-control" id="destinatario" name="destinatario" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="institucion">Institución</label>
+                                    <input type="text" class="form-control" id="institucion" name="institucion" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="referencia">Referencia</label>
+                                    <input type="text" class="form-control" id="referencia" name="referencia" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" class="form-control" id="estado" name="estado" required>
+                                </div>
+                                <!-- File Input -->
+                                <div class="form-group">
+                                    <label for="inputDocumento">Seleccionar archivo PDF:</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputDocumento" name="file" accept=".pdf" onchange="updateFileName()">
+                                        <label class="custom-file-label" for="inputDocumento" id="fileLabel">Seleccionar archivo PDF</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary bg-info mt-2" style="width: 100%;">Subir Documento</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Update file name script -->
                     <script>
                         function updateFileName() {
                             const input = document.getElementById('inputDocumento');
@@ -32,27 +82,41 @@
                             label.innerText = fileName;
                         }
                     </script>
-                    <table class="table">
+
+                    <br><!-- comment -->
+
+                    <!-- Document Table -->
+                    <table class="table mt-4">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Tamaño</th>
-                                <th>Acciones</th>
+                                <th>Fecha</th>
+                                <th>CITE</th>
+                                <th>Destinatario</th>
+                                <th>Referencia</th>
+                                <th>Estado</th>
+                                <th>Nota</th>
+                                <th>Ver</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="documento : ${documentos}">
-                                <td th:text="${documento.nombre}"></td>
-                                <td th:text="${documento.tipo}"></td>
+                            <tr th:each="enviado : ${enviados}">
+                                <td th:text="${enviado.fecha}"></td>
+                                <td th:text="${enviado.numcite}"></td>
+                                <td th:text="${enviado.destinatario}"></td>
+                                <td th:text="${enviado.referencia}"></td>
+                                <td th:text="${enviado.estado}"></td>
+                                <td th:text="${enviado.nota}"></td>
                                 <td>
-                                    <a th:href="@{'/verDocumento/' + ${documento.iddocumentos}}" class="btn btn-primary">Ver</a>
-                                    <a th:href="@{'/eliminarDocumento/' + ${documento.iddocumentos}}" class="btn btn-danger">Eliminar</a>
+                                    <a th:href="@{'/verDocumento/' + ${enviado.iddocumento}}" class="btn btn-primary">Ver</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/eliminarDocumento/' + ${enviado.iddocumento}}" class="btn btn-danger">Eliminar</a>
                                 </td>
                             </tr>
                         </tbody>
+
                     </table>
-
-
                 </div>
             </div>
         </div>

@@ -3,13 +3,17 @@ package com.gestionCorrespondencia.web;
 import com.gestionCorrespondencia.dao.RegistroDao;
 import com.gestionCorrespondencia.domain.Registro;
 import com.gestionCorrespondencia.service.RegistroService;
-import com.gestionCorrespondencia.domain.DocEnviados;
+import com.gestionCorrespondencia.domain.Enviados;
+import com.gestionCorrespondencia.service.EnviadoService;
 import com.gestionCorrespondencia.service.EnviadosRepository;
 import com.gestionCorrespondencia.web.documents.DocumentoWord;
 import jakarta.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -40,8 +44,10 @@ public class Controlador {
 
     @Autowired
     private RegistroService registroService;
+    @Autowired
+    private EnviadoService enviadoService;
     private RegistroDao registroDao;
-    private List<DocEnviados> documentos = new ArrayList<>();
+    private List<Enviados> documentos = new ArrayList<>();
 
     @Autowired
     private EnviadosRepository enviadosRepository;
@@ -75,14 +81,18 @@ public class Controlador {
         return "todosLosRegistros";
     }
 
-    @GetMapping("enviados")
-    public String documentosEnviados(Model model) {
-        model.addAttribute("documentos", enviadosRepository.findAll());
-        return "layout/enviados";
-    }
+    
 
     @PostMapping("/subirDocumento")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+            @RequestParam("fecha") String fecha,
+            @RequestParam("numcite") String numcite,
+            @RequestParam("remitente") String remitente,
+            @RequestParam("destinatario") String destinatario,
+            @RequestParam("institucion") String institucion,
+            @RequestParam("referencia") String referencia,
+            @RequestParam("estado") String estado,
+            RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Por favor seleccione un archivo para subir");
             return "redirect:/enviados";
@@ -90,10 +100,16 @@ public class Controlador {
 
         try {
             // Guarda el archivo en la base de datos
-            DocEnviados documento = new DocEnviados();
-            documento.setNombre(file.getOriginalFilename());
-            documento.setTipo(file.getContentType());
-            documento.setContenido(file.getBytes()); // Guarda el contenido del archivo como un arreglo de bytes
+            Enviados documento = new Enviados();
+            documento.setFecha(LocalDate.parse(fecha)); // Asegúrate de convertir la fecha correctamente
+            documento.setNumcite(numcite);
+            documento.setRemitente(remitente);
+            documento.setDestinatario(destinatario);
+            documento.setInstitucion(institucion);
+            documento.setReferencia(referencia);
+            documento.setEstado(estado);
+            documento.setContenido(file.getBytes()); // Asegúrate de almacenar el contenido del archivo
+
             enviadosRepository.save(documento);
 
             redirectAttributes.addFlashAttribute("message", "Archivo subido exitosamente: " + file.getOriginalFilename());
@@ -107,17 +123,50 @@ public class Controlador {
 
     @GetMapping("/verDocumento/{iddocumento}")
     public ResponseEntity<Resource> verDocumento(@PathVariable Long iddocumento) {
-        // Recuperar el documento de la base de datos
-        DocEnviados documento = enviadosRepository.findById(iddocumento).orElse(null);
+        Enviados documento = enviadosRepository.findById(iddocumento).orElse(null);
+        if (documento == null) {
+            return ResponseEntity.notFound().build(); // Retorna 404 si el documento no se encuentra
+        }
 
-        // Crear un recurso a partir del contenido del documento
         ByteArrayResource resource = new ByteArrayResource(documento.getContenido());
 
-        // Construir la respuesta HTTP para enviar el archivo al navegador
+        String fileName = documento.getFecha() + "_Cite" + documento.getNumcite() + ".pdf";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + fileName + "\"");
+        headers.setContentType(MediaType.APPLICATION_PDF);
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + documento.getNombre() + "\"")
-                .contentType(MediaType.parseMediaType(documento.getTipo()))
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
                 .body(resource);
+    }
+
+    @GetMapping("/enviados")
+    public String documentosEnviados(Model model) {
+        List<Enviados> documentos = enviadosRepository.findAll();
+        model.addAttribute("documentos", documentos);
+        return "layout/enviados";
+    }
+    
+    @GetMapping("/registrosEnviados")
+    public String registrosEnviados(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+        List<Enviados> enviados = enviadoService.listarEnvios();
+        if (keyword != null && !keyword.isEmpty()) {
+            enviados = enviados.stream()
+                    .filter(enviado -> enviado.getNumcite().contains(keyword)
+                    || enviado.getRemitente().contains(keyword)
+                    || enviado.getDestinatario().contains(keyword)
+                    || enviado.getInstitucion().contains(keyword)
+                    || enviado.getReferencia().contains(keyword)
+                    || enviado.getEstado().contains(keyword)
+                    || (enviado.getNota() != null && enviado.getNota().contains(keyword))
+            )
+                    .collect(Collectors.toList());
+        }
+        model.addAttribute("enviados", enviados);
+        model.addAttribute("keyword", keyword);
+        return "layout/enviados";
     }
 
     @GetMapping("/eliminarDocumento/{iddocumento}")
