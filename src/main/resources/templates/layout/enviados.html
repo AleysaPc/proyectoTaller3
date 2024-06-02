@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/plantilla :: head">
+        <title>ENVIADOS</title>
+        <meta charset="UTF-8">
+    </head>
+    <header th:replace="layout/plantilla :: header"></header>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <nav th:replace="layout/navegacion :: navegacion"></nav>
+                </div>
+                <div class="col-md-9">
+                    <form th:action="@{/subirDocumento}" method="post" enctype="multipart/form-data" class="mt-4">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputDocumento" name="file" accept=".pdf" onchange="updateFileName()">
+                                <label class="custom-file-label" for="inputDocumento" id="fileLabel">Seleccionar archivo PDF</label>
+                            </div>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary bg-info">Subir Documento</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <script>
+                        function updateFileName() {
+                            const input = document.getElementById('inputDocumento');
+                            const fileName = input.files[0].name;
+                            const label = document.getElementById('fileLabel');
+                            label.innerText = fileName;
+                        }
+                    </script>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Tamaño</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="documento : ${documentos}">
+                                <td th:text="${documento.nombre}"></td>
+                                <td th:text="${documento.tipo}"></td>
+                                <td>
+                                    <a th:href="@{'/verDocumento/' + ${documento.iddocumentos}}" class="btn btn-primary">Ver</a>
+                                    <a th:href="@{'/eliminarDocumento/' + ${documento.iddocumentos}}" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

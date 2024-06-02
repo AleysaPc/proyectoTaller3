@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/plantilla :: head">
+        <title>Contactos</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">   
+                    <nav th:replace="layout/navegacion :: navegacion"></nav>
+                </div> 
+
+                <div class="col-md-9">
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-sm-6 col-md-6">
+                            <div class="card" style="width: 15rem; ">
+                                <img class="card-img-top" src="https://i.pinimg.com/564x/1f/3b/64/1f3b64470e479d70d46e79a0f15dc1d5.jpg" alt="Card image cap" style="height: 200px">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary bg-info" data-toggle="modal" data-target="#directorioModal">
+                                            DIRECTORIO
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 p-0">
+                            <div class="card" style="width: 15rem;">
+                                <img class="card-img-top" src="https://i.pinimg.com/564x/a9/7b/0d/a97b0dd9a33ebd44021983891d61b01f.jpg" alt="Card image cap" style="height: 200px">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary bg-info" data-toggle="modal" data-target="#afiliadosModal">
+                                            AFILIADOS
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Directorio -->
+        <div class="modal fade" id="directorioModal" tabindex="-1" role="dialog" aria-labelledby="directorioModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="directorioModalLabel">Lista del Directorio</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <li>Directorio 1</li>
+                            <li>Directorio 2</li>
+                            <li>Directorio 3</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Afiliados -->
+        <div class="modal fade" id="afiliadosModal" tabindex="-1" role="dialog" aria-labelledby="afiliadosModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="afiliadosModalLabel">Lista de Afiliados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <li>Afiliado 1</li>
+                            <li>Afiliado 2</li>
+                            <li>Afiliado 3</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

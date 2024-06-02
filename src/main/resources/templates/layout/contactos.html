@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="layout/plantilla :: head">
+        <title>Contactos</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+
+        <div class="container-fluid">
+            <div class="row">
+                <br> 
+                <div class="col-md-3">
+                    <nav th:replace="layout/navegacion :: navegacion"></nav>
+                </div>
+
+                <div class="col-md-9">
+                    <br>
+                    <!-- Para buscar la tarjeta -->
+                    <input type="text" class="form-control search-input" placeholder="Buscar por nombre" oninput="buscarContacto(this.value)">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <br>
+                            <div class="card" style="border: 2px solid cadetblue;">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-md-4">
+                                        <img src="https://img.freepik.com/foto-gratis/worldface-hombre-espanol-fondo-blanco_53876-139733.jpg?size=626&ext=jpg&ga=GA1.1.34264412.1716854400&semt=sph" class="card-img rounded-circle" alt="Perfil">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <small>
+                                            <div class="card-body" >
+                                                <h5 class="card-title mb-0">Nombre Apellido</h5>
+                                                <p class="card-text mb-0">Cargo: Gerente de Ventas</p>
+                                                <p class="card-text mb-0">Teléfono: +123 456 789</p>
+                                                <p class="card-text mb-0">Correo electrónico: correo@example.com</p>
+                                                <p class="card-text mb-0">Ubicación: Ciudad, País</p>
+                                            </div>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> 
+                        <div class="col-md-6">
+                            <br>
+                            <div class="card" style="border: 2px solid cadetblue;">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-md-4">
+                                        <img src="https://img.freepik.com/foto-gratis/worldface-hombre-espanol-fondo-blanco_53876-139733.jpg?size=626&ext=jpg&ga=GA1.1.34264412.1716854400&semt=sph" class="card-img rounded-circle" alt="Perfil">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <small>
+                                            <div class="card-body" >
+                                                <h5 class="card-title mb-0">Nombre Apellido</h5>
+                                                <p class="card-text mb-0">Cargo: Gerente de Ventas</p>
+                                                <p class="card-text mb-0">Teléfono: +123 456 789</p>
+                                                <p class="card-text mb-0">Correo electrónico: correo@example.com</p>
+                                                <p class="card-text mb-0">Ubicación: Ciudad, País</p>
+                                            </div>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <br>
+                            <div class="card" style="border: 2px solid cadetblue;">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-md-4">
+                                        <img src="https://img.freepik.com/foto-gratis/worldface-hombre-espanol-fondo-blanco_53876-139733.jpg?size=626&ext=jpg&ga=GA1.1.34264412.1716854400&semt=sph" class="card-img rounded-circle" alt="Perfil">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <small>
+                                            <div class="card-body" >
+                                                <h5 class="card-title mb-0">Nombre Rojas</h5>
+                                                <p class="card-text mb-0">Cargo: Gerente de Ventas</p>
+                                                <p class="card-text mb-0">Teléfono: +123 456 789</p>
+                                                <p class="card-text mb-0">Correo electrónico: correo@example.com</p>
+                                                <p class="card-text mb-0">Ubicación: Ciudad, País</p>
+                                            </div>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> 
+                        <div class="col-md-6">
+                            <br>
+                            <div class="card" style="border: 2px solid cadetblue;">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-md-4">
+                                        <img src="https://img.freepik.com/foto-gratis/worldface-hombre-espanol-fondo-blanco_53876-139733.jpg?size=626&ext=jpg&ga=GA1.1.34264412.1716854400&semt=sph" class="card-img rounded-circle" alt="Perfil">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <small>
+                                            <div class="card-body" >
+                                                <h5 class="card-title mb-0">Omar</h5>
+                                                <p class="card-text mb-0">Cargo: Gerente de Ventas</p>
+                                                <p class="card-text mb-0">Teléfono: +123 456 789</p>
+                                                <p class="card-text mb-0">Correo electrónico: correo@example.com</p>
+                                                <p class="card-text mb-0">Ubicación: Ciudad, País</p>
+                                            </div>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function buscarContacto(nombre) {
+            var cards = document.querySelectorAll('.card');
+            var regex = new RegExp(nombre.trim(), 'i');
+            cards.forEach(function (card) {
+                var nombreContacto = card.querySelector('.card-title').innerText.trim();
+                if (regex.test(nombreContacto)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
