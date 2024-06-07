@@ -1,11 +1,9 @@
 package com.gestionCorrespondencia.web;
 
 import com.gestionCorrespondencia.dao.RegistroDao;
-import com.gestionCorrespondencia.dao.TaskDao;
 import com.gestionCorrespondencia.domain.Registro;
 import com.gestionCorrespondencia.service.RegistroService;
 import com.gestionCorrespondencia.domain.Enviados;
-import com.gestionCorrespondencia.domain.Task;
 import com.gestionCorrespondencia.service.EnviadoService;
 import com.gestionCorrespondencia.service.EnviadosRepository;
 import com.gestionCorrespondencia.web.documents.DocumentoWord;
@@ -35,6 +33,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.gestionCorrespondencia.dao.TasksDao;
+import com.gestionCorrespondencia.domain.Tasks;
+import com.gestionCorrespondencia.service.TasksService;
 
 @Controller
 @Slf4j
@@ -51,7 +52,7 @@ public class Controlador {
     private EnviadosRepository enviadosRepository;
 
     @Autowired
-    private TaskDao taskDao;
+    private TasksService tasksService;
     
     
     @GetMapping("/")
@@ -245,23 +246,29 @@ public class Controlador {
     }
     
     //Tareas
-    @GetMapping
-    public String listTasks(Model model) {
-        model.addAttribute("tasks", taskDao.findAll());
-        return "tasks";
-    }
-   
 
     @GetMapping("/agregarTarea")
-    public String agregarTarea (Task task){
+    public String agregarTarea (Tasks tasks){
         return "Task";
     }
     
     @PostMapping("/guardarTarea")
-    public String guardarTarea (Task task){
-        taskDao.save(task);
+    public String guardarTarea (Tasks tasks){
+        tasksService.guardar(tasks);
         return "redirect:/";
     }
+    @GetMapping("/editar/{id}")
+    public String editar (Tasks tasks, Model model){
+        tasks = tasksService.encontrarTarea(tasks);
+        model.addAttribute("tasks", tasks);
+        return "";
+    }
+    @GetMapping("/eliminar/{id}")
+    public String eliminar (Tasks tasks){
+        tasksService.eliminar(tasks);
+        return "";
+    }
+    
    
 }
 
