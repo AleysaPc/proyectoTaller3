@@ -249,7 +249,7 @@ public class Controlador {
 
     @GetMapping("/agregarTarea")
     public String agregarTarea (Tasks tasks){
-        return "Task";
+        return "Tasks";
     }
     
     @PostMapping("/guardarTarea")
