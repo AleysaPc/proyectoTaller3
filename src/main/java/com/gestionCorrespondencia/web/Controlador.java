@@ -1,19 +1,18 @@
 package com.gestionCorrespondencia.web;
 
 import com.gestionCorrespondencia.dao.RegistroDao;
+import com.gestionCorrespondencia.dao.TaskDao;
 import com.gestionCorrespondencia.domain.Registro;
 import com.gestionCorrespondencia.service.RegistroService;
 import com.gestionCorrespondencia.domain.Enviados;
+import com.gestionCorrespondencia.domain.Task;
 import com.gestionCorrespondencia.service.EnviadoService;
 import com.gestionCorrespondencia.service.EnviadosRepository;
 import com.gestionCorrespondencia.web.documents.DocumentoWord;
 import jakarta.validation.Valid;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -30,11 +29,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,6 +50,10 @@ public class Controlador {
     @Autowired
     private EnviadosRepository enviadosRepository;
 
+    @Autowired
+    private TaskDao taskDao;
+    
+    
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) {
 
@@ -241,4 +243,27 @@ public class Controlador {
         registroService.eliminar(registro);
         return "redirect:/";
     }
+    
+    //Tareas
+    @GetMapping
+    public String listTasks(Model model) {
+        model.addAttribute("tasks", taskDao.findAll());
+        return "tasks";
+    }
+   
+
+    @GetMapping("/agregarTarea")
+    public String agregarTarea (Task task){
+        return "Task";
+    }
+    
+    @PostMapping("/guardarTarea")
+    public String guardarTarea (Task task){
+        taskDao.save(task);
+        return "redirect:/";
+    }
+   
 }
+
+
+
