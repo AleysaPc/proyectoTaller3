@@ -36,6 +36,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gestionCorrespondencia.dao.TasksDao;
 import com.gestionCorrespondencia.domain.Tasks;
 import com.gestionCorrespondencia.service.TasksService;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 @Slf4j
@@ -53,8 +59,7 @@ public class Controlador {
 
     @Autowired
     private TasksService tasksService;
-    
-    
+
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) {
 
@@ -83,8 +88,6 @@ public class Controlador {
         model.addAttribute("keyword", keyword);
         return "todosLosRegistros";
     }
-
-    
 
     @PostMapping("/subirDocumento")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
@@ -151,7 +154,7 @@ public class Controlador {
         model.addAttribute("documentos", documentos);
         return "layout/enviados";
     }
-    
+
     @GetMapping("/registrosEnviados")
     public String registrosEnviados(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
         List<Enviados> enviados = enviadoService.listarEnvios();
@@ -164,7 +167,7 @@ public class Controlador {
                     || enviado.getReferencia().contains(keyword)
                     || enviado.getEstado().contains(keyword)
                     || (enviado.getNota() != null && enviado.getNota().contains(keyword))
-            )
+                    )
                     .collect(Collectors.toList());
         }
         model.addAttribute("enviados", enviados);
@@ -244,33 +247,41 @@ public class Controlador {
         registroService.eliminar(registro);
         return "redirect:/";
     }
-    
-    //Tareas
 
+    //Tareas
     @GetMapping("/agregarTarea")
-    public String agregarTarea (Tasks tasks){
-        return "Tasks";
+    public String agregarTarea(Model model) {
+        // Obtener la lista de tareas pendientes
+        List<Tasks> listaTareas = tasksService.listarTareasPendientes();
+        // Pasar la lista de tareas al modelo
+        model.addAttribute("tasks", listaTareas);
+        return "Tasks"; // Devolver la vista
     }
-    
+
     @PostMapping("/guardarTarea")
-    public String guardarTarea (Tasks tasks){
+    public String guardarTarea(Tasks tasks) {
         tasksService.guardar(tasks);
         return "redirect:/";
     }
-    @GetMapping("/editar/{id}")
-    public String editar (Tasks tasks, Model model){
-        tasks = tasksService.encontrarTarea(tasks);
+
+    @GetMapping("/editarTarea/{idtasks}")
+    public String editarTarea(@PathVariable("idtasks") Long idtasks, Model model) {
+        Tasks tasks = tasksService.encontrarTarea(idtasks);
         model.addAttribute("tasks", tasks);
-        return "";
+        return "layout/editarTarea"; // Devolver el nombre de la vista de edición
     }
-    @GetMapping("/eliminar/{id}")
-    public String eliminar (Tasks tasks){
-        tasksService.eliminar(tasks);
-        return "";
+
+    @GetMapping("/eliminarTarea/{idtasks}")
+    public String eliminarTarea(@PathVariable("idtasks") Long idtasks) {
+        tasksService.eliminar(idtasks);
+        return "redirect:/"; // Opcional: redirige a la página principal después de eliminar la tarea
     }
-    
-   
+
+   @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleValidationException(MethodArgumentNotValidException ex) {
+        BindingResult result = ex.getBindingResult();
+        return result.getFieldError().getDefaultMessage();
+    }
 }
-
-
-

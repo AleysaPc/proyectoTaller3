@@ -7,6 +7,10 @@ public interface TasksService {
 
     public List<Tasks> listarTareas();
     public void guardar (Tasks tasks);
-    public void eliminar (Tasks tasks);
-    public Tasks encontrarTarea(Tasks tasks);
+    public void eliminar (Long idtasks);
+    public Tasks encontrarTarea(Long idtasks);
+    List<Tasks> listarTareasPendientes();
+      
+  
+   
 }

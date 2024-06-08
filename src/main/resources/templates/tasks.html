@@ -1,33 +1,88 @@
 <!DOCTYPE html>
-
-<html xmln:th="http://www.thymeleaf.org">
-    
+<html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="layout/plantilla :: head">
-        <title>BOARD</title>
-        <meta charset="UTF-8"/>
+        <title>Tareas Pendientes</title>
+        <meta charset="UTF-8">
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
-        <h1>Lista de Tareas</h1>
-    <a href="/tasks/new">Nueva Tarea</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Descripción</th>
-                <th>Completada</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="task : ${tasks}">
-                <td th:text="${task.description}"></td>
-                <td th:text="${task.completed ? 'Sí' : 'No'}"></td>
-                <td>
-                    <a th:href="@{/tasks/editar/{id}(id=${task.id})}">Editar</a>
-                    <a th:href="@{/tasks/eliminar/{id}(id=${task.id})}">Eliminar</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3">
+                    <nav th:replace="layout/navegacion :: navegacion"></nav>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9">
+                    <div class="dropdown mt-4">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Registrar documento Enviado
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <form th:action="@{/guardarTarea}" method="POST" enctype="multipart/form-data" class="p-3"
+                                  style="width: 600px;">
+                                <div class="form-group">
+                                    <label for="titulo">Titulo:</label>
+                                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fechavencimiento">Fecha</label>
+                                    <input type="localdate" class="form-control" id="fechavencimiento" name="fechavencimiento" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hora">Hora</label>
+                                    <input type="localtime" class="form-control" id="hora" name="hora" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="asignado">Asignado A:</label>
+                                    <input type="text" class="form-control" id="asignado" name="asignado" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estado">Estado</label>
+                                    <input type="text" class="form-control" id="estado" name="estado" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Titulo</th>
+                                    <th>Fecha de Vencimiento</th>
+                                    <th>Hora</th>
+                                    <th>Asignacion</th>
+                                    <th>Estado</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="task : ${tasks}">
+                                    <td th:text="${task.titulo}"></td>
+                                    <td th:text="${task.fechavencimiento}"></td>
+                                    <td th:text="${task.hora}"></td>
+                                    <td th:text="${task.asignado}"></td>
+                                    <td th:text="${task.estado}"></td>
+                                    <td>
+                                        <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
+                                        <a th:href="@{'/editarTarea/' + ${task.idtasks}}" class="btn btn-primary">Editar</a>
+                                    </td>
+                                     <td>
+                                        <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
+                                        <a th:href="@{'/eliminarTarea/' + ${task.idtasks}}" class="btn btn-primary">Eliminar</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

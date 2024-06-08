@@ -5,16 +5,17 @@ import com.gestionCorrespondencia.domain.Tasks;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TasksServiceImpl implements TasksService {
-    
+
     @Autowired
     private TasksDao tasksDao;
 
     @Override
     public List<Tasks> listarTareas() {
-        return (List<Tasks>)tasksDao.findAll();
+        return (List<Tasks>) tasksDao.findAll();
     }
 
     @Override
@@ -23,12 +24,18 @@ public class TasksServiceImpl implements TasksService {
     }
 
     @Override
-    public void eliminar(Tasks tasks) {
-          tasksDao.delete(tasks);
+    public void eliminar(Long idtasks) {
+        tasksDao.deleteById(idtasks);
     }
+
     @Override
-    public Tasks encontrarTarea(Tasks tasks) {
-        return tasksDao.findById(tasks.getId()).orElse(null);
+    public Tasks encontrarTarea(Long id) {
+        return tasksDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Tasks> listarTareasPendientes() {
+        return tasksDao.findByEstado("Pendiente");
     }
     
 }

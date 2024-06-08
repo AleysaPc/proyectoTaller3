@@ -33,4 +33,5 @@ public class RegistroServiceImpl implements RegistroService {
     public Registro encontrarRegistro(Registro registro) {
         return registroDao.findById(registro.getIdregistro()).orElse(null);
      }
+    
 }
