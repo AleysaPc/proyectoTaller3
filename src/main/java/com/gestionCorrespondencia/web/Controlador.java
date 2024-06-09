@@ -54,7 +54,7 @@ public class Controlador {
     @Autowired
     private EnviadoService enviadoService;
     private RegistroDao registroDao;
-    private List<Enviados> documentos = new ArrayList<>();
+    private final List<Enviados> documentos = new ArrayList<>();
 
     @Autowired
     private EnviadosRepository enviadosRepository;
@@ -66,12 +66,31 @@ public class Controlador {
     public String inicio(Model model, @AuthenticationPrincipal User user) {
 
         var registros = registroService.listarRegistro();
+        var envios = enviadoService.listarEnvios();
+
+        //contador
+        int totalregistros = registros.size();
+        int totalenvios = envios.size();
+
+        var registroTotal = 0;
+        for (var p : registros) {
+            registroTotal++;
+        }
+
+        var envioTotal = 0;
+        for (var c : envios) {
+            envioTotal++;
+        }
+
+        var numeroRegistro = "R-" + registroTotal + "/2024";
+        var numeroCite = "CITE: ISAF/ADM/" + envioTotal + "/2024";
 
         log.info("Ejecutando el controlador");
         log.info("Usuario que hizo login" + user);
         model.addAttribute("registros", registros);
-
-        model.addAttribute("totalRegistros", registros.size());
+        model.addAttribute("registroTotal", registroTotal);
+        model.addAttribute("numeroRegistro", numeroRegistro);
+        model.addAttribute("numeroCite", numeroCite);
 
         return "index";
     }
@@ -164,10 +183,10 @@ public class Controlador {
             enviados = enviados.stream()
                     .filter(enviado -> enviado.getEstado().contains(keyword)
                     || enviado.getNumcite().contains(keyword)
-                            || enviado.getRemitente().contains(keyword)
-                            || enviado.getDestinatario().contains(keyword)
-                            || enviado.getInstitucion().contains(keyword)
-                            || enviado.getReferencia().contains(keyword)
+                    || enviado.getRemitente().contains(keyword)
+                    || enviado.getDestinatario().contains(keyword)
+                    || enviado.getInstitucion().contains(keyword)
+                    || enviado.getReferencia().contains(keyword)
                     || (enviado.getNota() != null && enviado.getNota().contains(keyword))
                     )
                     .collect(Collectors.toList());
@@ -177,8 +196,6 @@ public class Controlador {
         return "layout/enviados";
     }
 
-    
-    
     @GetMapping("/eliminarDocumento/{iddocumento}")
     public String eliminarDocumento(@PathVariable Long iddocumento) {
         // Eliminar el documento de la base de datos
@@ -281,13 +298,12 @@ public class Controlador {
         return "redirect:/"; // Opcional: redirige a la página principal después de eliminar la tarea
     }
 
-   @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public String handleValidationException(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         return result.getFieldError().getDefaultMessage();
     }
-    
-    
+
 }

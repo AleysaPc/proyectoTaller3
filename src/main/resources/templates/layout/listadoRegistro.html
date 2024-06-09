@@ -32,8 +32,8 @@
                                             <th th:text="#{titulo.registro}">Registro</th>
                                             <th th:text="#{titulo.remitente}">Remitente</th>
                                             <th th:text="#{titulo.referencia}">Referencia</th>
-                                            <th th:text="#{accion.editar}">Editar</th>
-                                            <th th:text="#{accion.eliminar}">Eliminar</th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{accion.editar}">Editar</th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{accion.eliminar}" >Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody>

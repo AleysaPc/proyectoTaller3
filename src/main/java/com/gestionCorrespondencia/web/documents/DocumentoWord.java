@@ -1,5 +1,6 @@
 package com.gestionCorrespondencia.web.documents;
 
+import com.gestionCorrespondencia.service.EnviadoService;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +17,10 @@ import org.apache.poi.xwpf.usermodel.XWPFFooter;
 import org.apache.poi.xwpf.usermodel.XWPFHeader;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class DocumentoWord {
+    
 
     public void generarDocumento() throws InvalidFormatException {
         try {
@@ -40,6 +43,8 @@ public class DocumentoWord {
     }
 
     private void agregarContenido(XWPFDocument document) throws InvalidFormatException {
+
+        
 
         // Membretado
         XWPFHeader header = document.createHeader(HeaderFooterType.DEFAULT);
@@ -76,7 +81,7 @@ public class DocumentoWord {
         ubicacionFechaRun.addBreak();
         ubicacionFechaRun.setText("La Paz, " + fechaFormateada);
         ubicacionFechaRun.addBreak();
-        ubicacionFechaRun.setText("CITE: ISAF/R-S/001/24");
+        ubicacionFechaRun.setText("CITE: ISAF/R-S/001/2024");
         ubicacionFechaRun.addBreak();
         ubicacionFechaRun.addBreak();
 

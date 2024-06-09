@@ -22,13 +22,15 @@
                                         <h4>[[#{accion.editar}]]</h4>
                                     </div>
                                     <div class="card-body">
+
                                         <div class="form-group">
                                             <label for="numero" th:text="#{titulo.numero}"></label>
-                                            <input type="text" class="form-control" name="numero" required="true" th:field="*{numero}">
+                                            <input type="text" class="form-control" name="numero" th:field="*{numero}" readonly="readonly">
                                         </div>
+
                                         <div class="form-group">
                                             <label for="numregistro" th:text="#{titulo.registro}">Numero Regisro</label>
-                                            <input type="text" class="form-control" name="numregistro" required="true" th:field="*{numregistro}">
+                                            <input type="text" class="form-control" name="numregistro" th:field="*{numregistro}" readonly="readonly">
                                         </div>
                                         <div class="form-group">
                                             <label for="remitente" th:text="#{titulo.remitente}">Remitente</label>
@@ -62,7 +64,7 @@
                                             <label for="prioridad" th:text="#{titulo.prioridad}"></label>
                                             <input type="text" class="form-control" name="prioridad" required="true" th:field="*{prioridad}">
                                         </div> 
-                                            
+
                                     </div>
                                 </div>
                             </div>
