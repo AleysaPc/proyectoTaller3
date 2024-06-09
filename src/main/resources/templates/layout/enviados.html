@@ -3,10 +3,13 @@
     <head th:replace="layout/plantilla :: head">
         <title>ENVIADOS</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
+
         <div class="container-fluid">
+            <br/>
             <div class="row">
                 <!-- Sidebar -->
                 <div class="col-md-3">
@@ -17,10 +20,10 @@
                     <!-- Card Header with Search Form -->
                     <div class="card mt-4">
                         <div class="card-header d-flex justify-content-between align-items-center bg-dark text-white">
-                            <h4>[[#{plantilla.subtitulo}]]</h4>
+                            <h4>Enviados</h4>
                             <form th:action="@{/registrosEnviados}" method="get" class="form-inline">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="keyword">
-                                <button class=<"btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
                             </form>
                         </div>
                     </div>
@@ -73,50 +76,46 @@
                         </div>
                     </div>
 
-                    <!-- Update file name script -->
-                    <script>
-                        function updateFileName() {
-                            const input = document.getElementById('inputDocumento');
-                            const fileName = input.files[0].name;
-                            const label = document.getElementById('fileLabel');
-                            label.innerText = fileName;
-                        }
-                    </script>
-
                     <br><!-- comment -->
 
                     <!-- Document Table -->
-                    <table class="table mt-4">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>CITE</th>
-                                <th>Destinatario</th>
-                                <th>Referencia</th>
-                                <th>Estado</th>
-                                <th>Nota</th>
-                                <th>Ver</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="enviado : ${enviados}">
-                                <td th:text="${enviado.fecha}"></td>
-                                <td th:text="${enviado.numcite}"></td>
-                                <td th:text="${enviado.destinatario}"></td>
-                                <td th:text="${enviado.referencia}"></td>
-                                <td th:text="${enviado.estado}"></td>
-                                <td th:text="${enviado.nota}"></td>
-                                <td>
-                                    <a th:href="@{'/verDocumento/' + ${enviado.iddocumento}}" class="btn btn-primary">Ver</a>
-                                </td>
-                                <td>
-                                    <a th:href="@{'/eliminarDocumento/' + ${enviado.iddocumento}}" class="btn btn-danger">Eliminar</a>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <div th:if="${enviados != null and !enviados.empty}">
+                        <table class="table table-bordered mt-4">
+                            <thead class="bg-dark text-white">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>CITE</th>
+                                    <th>Destinatario</th>
+                                    <th>Referencia</th>
+                                    <th>Estado</th>
+                                    <th>Nota</th>
+                                    <th>Ver</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-light">
+                                <tr th:each="enviado : ${enviados}">
+                                    <td th:text="${enviado.fecha}"></td>
+                                    <td th:text="${enviado.numcite}"></td>
+                                    <td th:text="${enviado.destinatario}"></td>
+                                    <td th:text="${enviado.referencia}"></td>
+                                    <td th:text="${enviado.estado}"></td>
+                                    <td th:text="${enviado.nota}"></td>
+                                    <td>
+                                        <a th:href="@{'/verDocumento/' + ${enviado.iddocumento}}" class="btn btn-info">Ver</a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{'/eliminarDocumento/' + ${enviado.iddocumento}}" class="btn btn-dark">Eliminar</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    </table>
+                    <!-- Empty List Message -->
+                    <div class="text-center p-2" th:if="${enviados == null or enviados.empty}">
+                        <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
+                    </div>
                 </div>
             </div>
         </div>

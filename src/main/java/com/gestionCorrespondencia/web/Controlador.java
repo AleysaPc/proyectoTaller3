@@ -36,10 +36,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gestionCorrespondencia.dao.TasksDao;
 import com.gestionCorrespondencia.domain.Tasks;
 import com.gestionCorrespondencia.service.TasksService;
+import java.util.Locale;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -160,12 +162,12 @@ public class Controlador {
         List<Enviados> enviados = enviadoService.listarEnvios();
         if (keyword != null && !keyword.isEmpty()) {
             enviados = enviados.stream()
-                    .filter(enviado -> enviado.getNumcite().contains(keyword)
-                    || enviado.getRemitente().contains(keyword)
-                    || enviado.getDestinatario().contains(keyword)
-                    || enviado.getInstitucion().contains(keyword)
-                    || enviado.getReferencia().contains(keyword)
-                    || enviado.getEstado().contains(keyword)
+                    .filter(enviado -> enviado.getEstado().contains(keyword)
+                    || enviado.getNumcite().contains(keyword)
+                            || enviado.getRemitente().contains(keyword)
+                            || enviado.getDestinatario().contains(keyword)
+                            || enviado.getInstitucion().contains(keyword)
+                            || enviado.getReferencia().contains(keyword)
                     || (enviado.getNota() != null && enviado.getNota().contains(keyword))
                     )
                     .collect(Collectors.toList());
@@ -175,6 +177,8 @@ public class Controlador {
         return "layout/enviados";
     }
 
+    
+    
     @GetMapping("/eliminarDocumento/{iddocumento}")
     public String eliminarDocumento(@PathVariable Long iddocumento) {
         // Eliminar el documento de la base de datos
@@ -284,4 +288,6 @@ public class Controlador {
         BindingResult result = ex.getBindingResult();
         return result.getFieldError().getDefaultMessage();
     }
+    
+    
 }

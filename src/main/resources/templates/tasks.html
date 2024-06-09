@@ -6,6 +6,7 @@
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
+        </br>
         <div class="container-fluid">
             <div class="row">
                 <!-- Sidebar -->
@@ -18,7 +19,7 @@
                     <div class="dropdown mt-4">
                         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Registrar documento Enviado
+                            Nueva Tarea
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <form th:action="@{/guardarTarea}" method="POST" enctype="multipart/form-data" class="p-3"
@@ -50,11 +51,11 @@
                             </form>
 
                         </div>
-                        <table class="table mt-4">
-                            <thead>
+                        <table class="table table-bordered mt-4">
+                            <thead class="bg-dark text-white">
                                 <tr>
                                     <th>Titulo</th>
-                                    <th>Fecha de Vencimiento</th>
+                                    <th>Vencimiento</th>
                                     <th>Hora</th>
                                     <th>Asignacion</th>
                                     <th>Estado</th>
@@ -71,11 +72,11 @@
                                     <td th:text="${task.estado}"></td>
                                     <td>
                                         <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
-                                        <a th:href="@{'/editarTarea/' + ${task.idtasks}}" class="btn btn-primary">Editar</a>
+                                        <a th:href="@{'/editarTarea/' + ${task.idtasks}}" class="btn btn-info">Editar</a>
                                     </td>
                                      <td>
                                         <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
-                                        <a th:href="@{'/eliminarTarea/' + ${task.idtasks}}" class="btn btn-primary">Eliminar</a>
+                                        <a th:href="@{'/eliminarTarea/' + ${task.idtasks}}" class="btn btn-dark">Eliminar</a>
                                     </td>
                                 </tr>
                             </tbody>

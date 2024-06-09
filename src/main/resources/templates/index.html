@@ -8,10 +8,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     </head>
+      
     <body>
 
         <header th:replace="layout/plantilla :: header"></header>
-        <br></br>
+   </br>
         <div class="container-fluid">
             <div class="row">
                 <!-- Sidebar -->
@@ -19,14 +20,15 @@
                     <nav th:replace="layout/navegacion :: navegacion"></nav>
                 </div>
                 <!-- Main Content -->
+
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-9 px-md-4 main-content">
 
-
+                  
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card card-custom card text-white bg-info mb-3">
                                 <div class="card-body">
-                                    <h5 class="card-title">Entrantes  <i class="fas fa-envelope-open-text"></i></h5>
+                                    <h5 class="card-title">Recibidos <i class="fas fa-envelope-open-text"></i></h5>
                                     <hr class="my-3" style="border-color: azure;"> <!-- Línea horizontal -->
                                     <a href="todosLosRegistros" class="btn btn-outline-light">Ir a bandeja</a>
                                 </div>
@@ -90,7 +92,6 @@
                 </main>
             </div>
         </div>
-
     </body>
     <br/>
     <footer th:replace="layout/plantilla :: footer"></footer>
