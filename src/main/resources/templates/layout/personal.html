@@ -6,13 +6,14 @@
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
-
+ </br>  
         <div class="container-fluid">
             <div class="row">
+               
                 <div class="col-md-3">   
                     <nav th:replace="layout/navegacion :: navegacion"></nav>
                 </div> 
-
+                
                 <div class="col-md-9">
                     <br>
                     <div class="row justify-content-center">
@@ -57,10 +58,19 @@
                     </div>
                     <div class="modal-body">
                         <ul>
-                            <li>Directorio 1</li>
-                            <li>Directorio 2</li>
-                            <li>Directorio 3</li>
+                            <li>María González - Directora General</li>
+                            <li>Juan Pérez - Subdirector General</li>
+                            <li>Ana López - Directora de Finanzas</li>
+                            <li>Carlos Martínez - Director de Operaciones</li>
+                            <li>Laura Torres - Directora de Recursos Humanos</li>
+                            <li>Pedro Jiménez - Director de Marketing</li>
+                            <li>Lucía Fernández - Directora de Ventas</li>
+                            <li>Santiago Ramírez - Director de Tecnología</li>
+                            <li>Elena Sánchez - Directora de Comunicación</li>
+                            <li>Roberto Díaz - Director de Innovación</li>
+                            <li>Paula Navarro - Directora de Desarrollo de Negocios</li>
                         </ul>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -80,17 +90,12 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <ul>
-                            <li>Afiliado 1</li>
-                            <li>Afiliado 2</li>
-                            <li>Afiliado 3</li>
-                        </ul>
+                        <a href="/EjmploPersonal.pdf" target="_blank">Abrir pdf en nueva pestaña</a>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 </html>

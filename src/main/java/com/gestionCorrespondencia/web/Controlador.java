@@ -251,7 +251,7 @@ public class Controlador {
             return "modificar";
         }
         registroService.guardar(registro);
-        return "redirect:/";
+        return "modificar";
     }
 
     @GetMapping("/editar/{idregistro}")

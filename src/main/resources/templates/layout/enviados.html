@@ -79,7 +79,7 @@
                     <br><!-- comment -->
 
                     <!-- Document Table -->
-                    <div th:if="${enviados != null and !enviados.empty}">
+                    <div >
                         <table class="table table-bordered mt-4">
                             <thead class="bg-dark text-white">
                                 <tr>
@@ -112,10 +112,7 @@
                         </table>
                     </div>
 
-                    <!-- Empty List Message -->
-                    <div class="text-center p-2" th:if="${enviados == null or enviados.empty}">
-                        <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
-                    </div>
+                  
                 </div>
             </div>
         </div>

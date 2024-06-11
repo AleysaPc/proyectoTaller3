@@ -23,7 +23,7 @@
                         <form th:action="@{/guardar}" th:object="${registro}"
                               method="POST" class="was-validated"> <!-- para validacion -->
                             <div class="modal-body">
-                                
+
                                 <div class="form-group">
                                     <label for="numero" th:text="#{titulo.numero}"></label>
                                     <input type="text" class="form-control" name="numero" th:value="${registroTotal}" readonly="readonly">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="contenido" th:text="#{titulo.contenido}"></label>
-                                    <input type="text" class="form-control" name="contenido" required="true">
+                                    <input type="text" class="form-control" name="contenido" >
                                 </div>
                                 <div class="form-group">
                                     <label for="adjunto" th:text="#{titulo.adjunto}"></label>
@@ -63,8 +63,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="prioridad" th:text="#{titulo.prioridad}"></label>
-                                    <input type="text" class="form-control" name="prioridad" required="true">
+                                    <select class="form-control" name="prioridad">
+                                        <option value="alta">Alta</option>
+                                        <option value="media">Media</option>
+                                        <option value="baja">Baja</option>
+                                    </select>
                                 </div>
+
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
                                 </div>

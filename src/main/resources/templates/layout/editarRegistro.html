@@ -45,7 +45,7 @@
                                             <input type="text" class="form-control" name="instremitente" required="true" th:field="*{instremitente}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="destino" th:text="#{titulo.destino}"></label>
+                                            <label for="destino" th:text="#{titulo.destinatario}"></label>
                                             <input type="text" class="form-control" name="destino" required="true" th:field="*{destino}">
                                         </div>
                                         <div class="form-group">
@@ -54,8 +54,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="contenido" th:text="#{titulo.contenido}"></label>
-                                            <input type="text" class="form-control" name="contenido" required="true" th:field="*{contenido}">
+                                            <select class="form-control" name="contenido" th:field="*{contenido}">
+                                                <option value="opcion1">Opción 1</option>
+                                                <option value="opcion2">Opción 2</option>
+                                                <option value="opcion3">Opción 3</option>
+                                            </select>
                                         </div>
+
                                         <div class="form-group">
                                             <label for="adjunto" th:text="#{titulo.adjunto}"></label>
                                             <input type="text" class="form-control" name="adjunto" required="true" th:field="*{adjunto}">
