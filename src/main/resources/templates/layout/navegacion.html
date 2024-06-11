@@ -10,7 +10,7 @@
     </head>
     <body>
         <nav  th:fragment="navegacion" class=" navbar navbar-expand-lg navbar-light bg-light">
-            
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -19,21 +19,29 @@
                     <li class="nav-item">
                         <a th:href="@{/}" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="agregarRegistro" data-toggle="modal" data-target="#agregarRegistro" class="nav-link"><i class="fas fa-plus"></i> Nuevo Registro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/crearDocumento" class="nav-link"><i class="fas fa-file"></i> Nuevo Documento</a>
-                    </li>
+                    <!-- Autorizacion-->
+                    <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                        <li class="nav-item">
+                            <a href="agregarRegistro" data-toggle="modal" data-target="#agregarRegistro" class="nav-link"><i class="fas fa-plus"></i> Nuevo Registro</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="/crearDocumento" class="nav-link"><i class="fas fa-file"></i> Nuevo Documento</a>
+                        </li>
+
+                    </div> 
                     <li class="nav-item">
                         <a href="/todosLosRegistros" class="nav-link"><i class="fas fa-envelope-open-text"></i> Recibidos</a>
                     </li>
                     <li class="nav-item">   
                         <a href="../enviados" class="nav-link"><i class="fas fa-paper-plane"></i> Remitidos</a>
                     </li>
+                    <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                     <li class="nav-item">
-                        <a href="../agregarTarea" class="nav-link"><i class="fas fa-clock"></i> Pendiente</a>
+                        <a href="../agregarTarea" class="nav-link"><i class="fas fa-clock"></i> Tareas</a>
                     </li>
+                        </div>
                     <li class="nav-item">
                         <a href="../contactos" class="nav-link"><i class="fas fa-address-book"></i> Contactos</a>
                     </li>

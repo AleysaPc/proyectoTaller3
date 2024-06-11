@@ -29,7 +29,7 @@
                     </div>
 
                     <!-- Dropdown for Registering Document -->
-                    <div class="dropdown mt-4">
+                    <div class="dropdown mt-4" sec:authorize="hasRole('ROLE_ADMIN')">
                         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Registrar documento Enviado
                         </button>
@@ -63,6 +63,10 @@
                                     <label for="estado">Estado</label>
                                     <input type="text" class="form-control" id="estado" name="estado" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="nota">Nota</label>
+                                    <input type="text" class="form-control" id="nota" name="nota" >
+                                </div>
                                 <!-- File Input -->
                                 <div class="form-group">
                                     <label for="inputDocumento">Seleccionar archivo PDF:</label>
@@ -90,7 +94,8 @@
                                     <th>Estado</th>
                                     <th>Nota</th>
                                     <th>Ver</th>
-                                    <th>Eliminar</th>
+                                    <th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody class="bg-light">
@@ -104,15 +109,15 @@
                                     <td>
                                         <a th:href="@{'/verDocumento/' + ${enviado.iddocumento}}" class="btn btn-info">Ver</a>
                                     </td>
-                                    <td>
-                                        <a th:href="@{'/eliminarDocumento/' + ${enviado.iddocumento}}" class="btn btn-dark">Eliminar</a>
+                                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/eliminarDocumento/' + ${enviado.iddocumento}}" class="btn btn-dark">Eliminar</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                  
+
                 </div>
             </div>
         </div>

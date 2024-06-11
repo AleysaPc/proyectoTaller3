@@ -135,6 +135,7 @@ public class Controlador {
             documento.setInstitucion(institucion);
             documento.setReferencia(referencia);
             documento.setEstado(estado);
+            documento.setNota(estado);
             documento.setContenido(file.getBytes()); // Asegúrate de almacenar el contenido del archivo
 
             enviadosRepository.save(documento);
@@ -251,7 +252,7 @@ public class Controlador {
             return "modificar";
         }
         registroService.guardar(registro);
-        return "modificar";
+        return "redirect:/";
     }
 
     @GetMapping("/editar/{idregistro}")
@@ -305,5 +306,11 @@ public class Controlador {
         BindingResult result = ex.getBindingResult();
         return result.getFieldError().getDefaultMessage();
     }
+
+    @GetMapping("almacenArchivos")
+    public String almacenArcivos(){
+        return "layout/almacenArchivos";
+    }
+    
 
 }

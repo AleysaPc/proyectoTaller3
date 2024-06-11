@@ -17,10 +17,16 @@
                 <!-- Main Content -->
                 <div class="col-md-9">
                     <div class="dropdown mt-4">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Nueva Tarea
-                        </button>
+                        <div class="col">
+                            <h1 class="text-center">Notas - Tareas</h1>
+
+                        </div>
+                        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Nueva Tarea 
+                            </button>  
+                        </div>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <form th:action="@{/guardarTarea}" method="POST" enctype="multipart/form-data" class="p-3"
                                   style="width: 600px;">
@@ -36,7 +42,7 @@
                                     <label for="hora">Hora</label>
                                     <input type="localtime" class="form-control" id="hora" name="hora" required>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="asignado">Asignado A:</label>
                                     <input type="text" class="form-control" id="asignado" name="asignado" required>
@@ -51,36 +57,47 @@
                             </form>
 
                         </div>
-                        <table class="table table-bordered mt-4">
-                            <thead class="bg-dark text-white">
-                                <tr>
-                                    <th>Titulo</th>
-                                    <th>Vencimiento</th>
-                                    <th>Hora</th>
-                                    <th>Asignacion</th>
-                                    <th>Estado</th>
-                                    <th>Editar</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="task : ${tasks}">
-                                    <td th:text="${task.titulo}"></td>
-                                    <td th:text="${task.fechavencimiento}"></td>
-                                    <td th:text="${task.hora}"></td>
-                                    <td th:text="${task.asignado}"></td>
-                                    <td th:text="${task.estado}"></td>
-                                    <td>
-                                        <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
-                                        <a th:href="@{'/editarTarea/' + ${task.idtasks}}" class="btn btn-info">Editar</a>
-                                    </td>
-                                     <td>
-                                        <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
-                                        <a th:href="@{'/eliminarTarea/' + ${task.idtasks}}" class="btn btn-dark">Eliminar</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div th:if="${tasks != null and !tasks.empty}">
+                            <table class="table table-bordered mt-4">
+                                <thead class="bg-dark text-white">
+                                    <tr>
+                                        <th>Titulo</th>
+                                        <th>Vencimiento</th>
+                                        <th>Hora</th>
+                                        <th>Asignacion</th>
+                                        <th>Estado</th>
+                                        <th>Editar</th>
+                                        <th>Eliminar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="task : ${tasks}">
+                                        <td th:text="${task.titulo}"></td>
+                                        <td th:text="${task.fechavencimiento}"></td>
+                                        <td th:text="${task.hora}"></td>
+                                        <td th:text="${task.asignado}"></td>
+                                        <td th:text="${task.estado}"></td>
+                                        <td>
+                                            <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
+                                            <a th:href="@{'/editarTarea/' + ${task.idtasks}}" class="btn btn-info">Editar</a>
+                                        </td>
+                                        <td>
+                                            <!-- Modificar el enlace para incluir correctamente el ID de la tarea -->
+                                            <a th:href="@{'/eliminarTarea/' + ${task.idtasks}}" class="btn btn-dark">Eliminar</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </br>
+                    <div th:if="${tasks == null or tasks.empty}">
+                        <figure>
+
+                            <figcaption class="blockquote-footer">
+                                <cite style="font-size: 25px">Lista Vacia</cite>
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>

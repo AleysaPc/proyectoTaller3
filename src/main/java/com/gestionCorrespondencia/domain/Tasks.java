@@ -5,9 +5,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
@@ -23,10 +20,8 @@ public class Tasks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idtasks;
     private String titulo;
-    
-     @Temporal(TemporalType.DATE)
+   @DateTimeFormat(pattern = "dd/MM/yyyy") // Especifica el formato de fecha
     private LocalDate fechavencimiento; // Cambiado a LocalDate
-    
     private LocalTime hora;
     private String asignado;
     private String estado;

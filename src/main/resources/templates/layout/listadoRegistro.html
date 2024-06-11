@@ -32,8 +32,8 @@
                                             <th th:text="#{titulo.registro}">Registro</th>
                                             <th th:text="#{titulo.remitente}">Remitente</th>
                                             <th th:text="#{titulo.referencia}">Referencia</th>
-                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{accion.editar}">Editar</th>
-                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{accion.eliminar}" >Eliminar</th>
+                                            <th <a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{accion.editar}"></a>Editar</th>
+                                            <th <a sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{accion.eliminar}" ></a>Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,6 +61,7 @@
                             </div>
                         
                         <div class="text-center p-2" th:if="${registros == null or registros.empty}">
+                            </br>
                             <span th:text="#{registro.lista-vacia}">Lista Vacia</span>
                         </div>
                     </div>
